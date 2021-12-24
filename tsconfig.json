@@ -1,0 +1,17 @@
+{
+	"include": [
+		"src/**/*"
+	],
+	"exclude": [
+		"node_modules"
+	],
+	"compilerOptions": {
+		"target": "ES6",
+		"moduleResolution": "node",
+		"module": "CommonJS",
+		"outDir": "./build",
+		"alwaysStrict": true,
+		"esModuleInterop": true,
+		"types": [ "node" ]
+	}
+}
