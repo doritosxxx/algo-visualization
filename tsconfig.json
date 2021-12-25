@@ -1,17 +1,17 @@
 {
-	"include": [
-		"src/**/*"
-	],
-	"exclude": [
-		"node_modules"
-	],
-	"compilerOptions": {
-		"target": "ES6",
-		"moduleResolution": "node",
-		"module": "CommonJS",
-		"outDir": "./build",
-		"alwaysStrict": true,
-		"esModuleInterop": true,
-		"types": [ "node" ]
-	}
+    "include": ["src/**/*"],
+    "exclude": ["node_modules"],
+    "compilerOptions": {
+        "target": "ES6",
+        "moduleResolution": "node",
+        "module": "CommonJS",
+        "outDir": "./build",
+        "rootDir": "./src",
+        "alwaysStrict": true,
+        "esModuleInterop": true,
+        "types": ["node"],
+        "declaration": true,
+        "emitDeclarationOnly": true,
+        "isolatedModules": true
+    }
 }

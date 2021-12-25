@@ -4,9 +4,9 @@
   "description": "",
   "main": "build/index.js",
   "scripts": {
-	"build" : "tsc",
-    "test": "npm test",
-	"start" : "ts-node src/index.ts"
+    "build": "babel src -d build --extensions \".ts\"",
+    "test": "jest",
+    "start": "ts-node src/index.ts"
   },
   "keywords": [
     "algorithm",
@@ -17,6 +17,13 @@
   "author": "doritosxxx",
   "license": "ISC",
   "devDependencies": {
+    "@babel/cli": "^7.16.0",
+    "@babel/core": "^7.16.5",
+    "@babel/preset-env": "^7.16.5",
+    "@babel/preset-typescript": "^7.16.5",
+    "@types/jest": "^27.0.3",
+    "babel-jest": "^27.4.5",
+    "jest": "^27.4.5",
     "ts-node": "^10.4.0",
     "typescript": "^4.5.4"
   }
