@@ -1,0 +1,1 @@
+export type character = number | string; 
