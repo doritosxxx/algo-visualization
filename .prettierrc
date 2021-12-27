@@ -4,5 +4,6 @@
 	"useTabs": false,
 	"trailingComma": "es5",
 	"tabWidth": 4,
-	"semi": true
+	"semi": true,
+	"printWidth": 120
 }
