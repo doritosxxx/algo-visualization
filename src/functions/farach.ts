@@ -1,6 +1,7 @@
 import IndexedPair from "../class/IndexedPair";
 import SuffixTree from "../class/SuffixTree";
 import { character } from "../types";
+import makeEvenTree from "./makeEvenTree";
 import radixSort from "./radixSort";
 import reindex from "./reindex";
 import splitIntoPairs from "./splitIntoPairs";
@@ -23,5 +24,9 @@ export default function farach<T extends character>(word: T[]): SuffixTree {
 
 	console.log(compressed);
 
-	farach(compressed);
+	const tree = farach(compressed);
+
+	const evenTree = makeEvenTree(tree, unique_);
+
+
 }
