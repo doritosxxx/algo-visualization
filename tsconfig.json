@@ -12,6 +12,7 @@
         "types": ["node"],
         "declaration": true,
         "emitDeclarationOnly": true,
-        "isolatedModules": true
+        "isolatedModules": true,
+        "lib": ["es2019"]
     }
 }
