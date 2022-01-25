@@ -1,5 +1,6 @@
 import IndexedPair from "../class/IndexedPair";
-import SuffixTree from "../class/SuffixTree";
+import SuffixTreeEdge from "../class/SuffixTreeEdge";
+import SuffixTreeNode from "../class/SuffixTreeNode";
 import { character } from "../types";
 import makeEvenTree from "./makeEvenTree";
 import radixSort from "./radixSort";
@@ -7,14 +8,14 @@ import reindex from "./reindex";
 import splitIntoPairs from "./splitIntoPairs";
 import unique from "./unique";
 
-let step = 1;
 
-export default function farach<T extends character>(word: T[]): SuffixTree {
+// Step 1.
+export default function farach<T extends character>(word: T[]): SuffixTreeNode<T> {
     // Тривиальный случай.
     if (word.length == 1) {
-        const tree = new SuffixTree();
-        // TODO: add edge.
-        return tree;
+        const root = new SuffixTreeNode<T>();
+        root.edges.push(new SuffixTreeEdge(word));
+        return root;
     }
 
     const pairs = splitIntoPairs(word);
