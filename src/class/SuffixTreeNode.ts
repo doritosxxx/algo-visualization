@@ -5,5 +5,5 @@ import SuffixTreeEdge from "./SuffixTreeEdge";
 // Узлы содержат массив ребер.
 // Ребра упорядочены по первому символу.
 export default class SuffixTreeNode<T extends character> {
-	public readonly edges : SuffixTreeEdge<T>[]
+	public readonly edges : SuffixTreeEdge<T>[] = []
 }
