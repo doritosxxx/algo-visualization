@@ -37,10 +37,6 @@ function fixCommonBeginnings<T extends character>(tree: SuffixTreeNode<T>): void
         return array;
     }, []);
 
-    // 1) One group with one edge.
-    // 2) One group with several edges.
-    // 3) Several groups with one edge each.
-    // 4) Several groups with both one and several edges.
 
     for (const group of edgeGroups) {
         if (group.length == 1) {
@@ -63,6 +59,10 @@ function fixCommonBeginnings<T extends character>(tree: SuffixTreeNode<T>): void
     for (const edge of tree.edges) {
         fixCommonBeginnings(edge.endNode);
     }
+
+	tree.edges.length = 0;
+	newEdges.forEach(edge => tree.edges.push(edge));
+
 }
 
 // Step 2.
