@@ -7,18 +7,14 @@ import SuffixTreeEdge from "./SuffixTreeEdge";
 export default class SuffixTreeNode<T extends character> {
     public readonly edges: SuffixTreeEdge<T>[] = [];
 
-	// Функция для облегчения отладки.
+    // Функция для облегчения отладки.
     public toString(): string {
-		return this.getStringView(0);
-	}
+        return this.getStringView(0);
+    }
 
-	private getStringView(depth : number) : string {
-		let result = "";
-
-		for(const edge of this.edges){
-			result += "\t".repeat(depth) + edge.substring + '\n' + edge.endNode.getStringView(depth+1);
-		}
-
-		return result;
-	}
+    private getStringView(depth: number): string {
+        return this.edges
+            .map((edge) => "\t".repeat(depth) + edge.substring.join("") + "\n" + edge.endNode.getStringView(depth + 1))
+            .join("");
+    }
 }
