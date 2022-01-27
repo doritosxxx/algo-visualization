@@ -1,4 +1,4 @@
-import IndexedPair from "./class/IndexedPair";
+import Pair from "./class/Pair";
 import farach from "./functions/farach";
 import radixSort from "./functions/radixSort";
 

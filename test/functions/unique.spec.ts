@@ -1,6 +1,6 @@
 import IComparable from "../../src/interface/IComparable";
 import unique from "../../src/functions/unique";
-import IndexedPair from "../../src/class/IndexedPair";
+import Pair from "../../src/class/Pair";
 
 function areEqual<T extends IComparable<T>>(first: T[], second: T[]): boolean {
     return first.length == second.length && first.every((pair, index) => pair.equals(second[index]));
@@ -60,17 +60,17 @@ test("Complex case", () => {
 });
 
 test("pairs", () => {
-    const pairs: IndexedPair<number>[] = [
-        new IndexedPair(1, 2),
-        new IndexedPair(2, 2),
-        new IndexedPair(2, 2),
-        new IndexedPair(2, 3),
+    const pairs: Pair<number>[] = [
+        new Pair(1, 2),
+        new Pair(2, 2),
+        new Pair(2, 2),
+        new Pair(2, 3),
     ];
 
     const result = [
-        new IndexedPair(1, 2),
-        new IndexedPair(2, 2),
-        new IndexedPair(2, 3),
+        new Pair(1, 2),
+        new Pair(2, 2),
+        new Pair(2, 3),
     ];
     expect(areEqual(unique(pairs), result)).toBe(true);
 });

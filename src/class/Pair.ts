@@ -1,10 +1,10 @@
 import IComparable from "../interface/IComparable";
 import { character } from "../types";
 
-export default class IndexedPair<T extends character> implements IComparable<IndexedPair<T>> {
+export default class Pair<T extends character> implements IComparable<Pair<T>> {
     public constructor(readonly first: T, readonly second: T | null) {}
 
-    equals(other: IndexedPair<T>): boolean {
+    equals(other: Pair<T>): boolean {
         return this.first == other.first && this.second == other.second;
     }
 

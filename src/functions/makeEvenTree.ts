@@ -1,9 +1,9 @@
-import IndexedPair from "../class/IndexedPair";
+import Pair from "../class/Pair";
 import { SuffixTreeEdge, SuffixTreeNode } from "../class";
 import { character } from "../types";
 
 // This function can't change substrings in-place because new tree type can be different.
-function unfold<T extends character>(tree: SuffixTreeNode<number>, pairs: IndexedPair<T>[]): SuffixTreeNode<T> {
+function unfold<T extends character>(tree: SuffixTreeNode<number>, pairs: Pair<T>[]): SuffixTreeNode<T> {
     const unfolded = new SuffixTreeNode<T>();
     for (const edge of tree.edges) {
         const word = edge.substring.map((letter) => pairs[letter]).flatMap((pair) => [pair.first, pair.second]);
@@ -68,7 +68,7 @@ function fixCommonBeginnings<T extends character>(tree: SuffixTreeNode<T>): void
 // Step 2.
 export default function makeEvenTree<T extends character>(
     tree: SuffixTreeNode<number>,
-    pairs: IndexedPair<T>[]
+    pairs: Pair<T>[]
 ): SuffixTreeNode<T> {
     const evenTree = unfold(tree, pairs);
     fixCommonBeginnings(evenTree);

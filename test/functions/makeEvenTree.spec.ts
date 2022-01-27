@@ -1,5 +1,5 @@
 import { character, word } from "../../src/types";
-import { IndexedPair, SuffixTreeEdge, SuffixTreeNode } from "../../src/class";
+import { Pair, SuffixTreeEdge, SuffixTreeNode } from "../../src/class";
 import { makeEvenTree } from "../../src/functions";
 
 class CompressedNode<T extends character> {
@@ -51,7 +51,7 @@ test("One edge. o-o", () => {
     const tree = new SuffixTreeNode<number>();
     tree.edges.push(new SuffixTreeEdge<number>([0]));
 
-    const pairs: IndexedPair<string>[] = [new IndexedPair("a", "b")];
+    const pairs: Pair<string>[] = [new Pair("a", "b")];
     const even = makeEvenTree(tree, pairs);
 
     const desiredTree = new SuffixTreeNode<string>();
@@ -62,7 +62,7 @@ test("One edge. o-o", () => {
 
 test("Two edges chain. o-o-o", () => {
     const tree = new CompressedNode<number>([[0]], [new CompressedNode<number>([[1]], [new CompressedNode<number>()])]);
-    const pairs: IndexedPair<string>[] = [new IndexedPair("a", "b"), new IndexedPair("c", "d")];
+    const pairs: Pair<string>[] = [new Pair("a", "b"), new Pair("c", "d")];
     const desired = new CompressedNode<string>(
         [["a", "b"]],
         [new CompressedNode<string>([["c", "d"]], [new CompressedNode<string>()])]

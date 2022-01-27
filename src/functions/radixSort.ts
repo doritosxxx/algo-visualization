@@ -1,10 +1,10 @@
-import IndexedPair from "../class/IndexedPair";
+import Pair from "../class/Pair";
 import { character } from "../types";
 
 function countSort(
-    array: IndexedPair<character>[],
-    getRadix: (pair: IndexedPair<character>) => character
-): IndexedPair<character>[] {
+    array: Pair<character>[],
+    getRadix: (pair: Pair<character>) => character
+): Pair<character>[] {
     const radixes = array.map((pair) => {
         let radix = getRadix(pair);
         if (typeof radix == "string") {
@@ -20,7 +20,7 @@ function countSort(
         }
     }
 
-    const sorted: IndexedPair<character>[] = new Array(array.length);
+    const sorted: Pair<character>[] = new Array(array.length);
     const count = new Array(radixSize).fill(0);
 
     for (let i = 0; i < array.length; i++) {
@@ -41,7 +41,7 @@ function countSort(
     return sorted;
 }
 
-export default function radixSort(array: IndexedPair<character>[]): IndexedPair<character>[] {
+export default function radixSort(array: Pair<character>[]): Pair<character>[] {
     if (array.length == 0) {
         return [];
     }
