@@ -93,7 +93,7 @@ test("Tho edges fork", () => {
 //  O   O        O   O           O
 //                            b / \ c
 //                             O  O
-test("Tho edges fork with same first character", () => {
+test("Two edges fork with same first character", () => {
     const tree = new CompressedNode<number>([[0], [1]], [new CompressedNode(), new CompressedNode()]);
     const pairs: Pair<string>[] = [new Pair("a", "b"), new Pair("a", "c")];
     const desired = new CompressedNode<string>(
