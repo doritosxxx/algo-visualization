@@ -8,7 +8,10 @@ class CompressedNode<T extends character> {
         public readonly childNodes: CompressedNode<T>[] = []
     ) {
         if (substrings.length != childNodes.length)
-            throw new Error("`substrings` and `childNodes` must have same length");
+            throw new Error(
+                "`substrings` and `childNodes` must have same length. " +
+                    `${substrings.length} and ${childNodes.length} provided.`
+            );
     }
 
     public decompress(): SuffixTreeNode<T> {
@@ -38,8 +41,6 @@ function areTreesEqual<T extends character>(first: SuffixTreeNode<T>, second: Su
     );
 }
 
-function suffixTreeFromArray<T extends character>() {}
-
 function expectSuffixTreesEquality<T extends character>(
     first: SuffixTreeNode<T>,
     second: SuffixTreeNode<T>
@@ -57,7 +58,7 @@ test("One edge. o-o", () => {
     const desiredTree = new SuffixTreeNode<string>();
     desiredTree.edges.push(new SuffixTreeEdge<string>(["a", "b"]));
 
-    expectSuffixTreesEquality(even, desiredTree);
+    expectSuffixTreesEquality(even, desiredTree).toBe(true);
 });
 
 test("Two edges chain. o-o-o", () => {
@@ -68,6 +69,42 @@ test("Two edges chain. o-o-o", () => {
         [new CompressedNode<string>([["c", "d"]], [new CompressedNode<string>()])]
     );
 
+    const even = makeEvenTree(tree.decompress(), pairs);
+    expectSuffixTreesEquality(even, desired.decompress()).toBe(true);
+});
+
+test("Tho edges fork", () => {
+    const tree = new CompressedNode<number>([[0], [1]], [new CompressedNode<number>(), new CompressedNode<number>()]);
+    const pairs: Pair<string>[] = [new Pair("a", "b"), new Pair("c", "d")];
+    const desired = new CompressedNode<string>(
+        [
+            ["a", "b"],
+            ["c", "d"],
+        ],
+        [new CompressedNode<string>(), new CompressedNode<string>()]
+    );
+
+    const even = makeEvenTree(tree.decompress(), pairs);
+    expectSuffixTreesEquality(even, desired.decompress()).toBe(true);
+});
+
+//     O            O            O
+//  0/  \1  --> ab/  \ac -->    a|
+//  O   O        O   O           O
+//                            b / \ c
+//                             O  O
+test("Tho edges fork with same first character", () => {
+    const tree = new CompressedNode<number>([[0], [1]], [new CompressedNode(), new CompressedNode()]);
+    const pairs: Pair<string>[] = [new Pair("a", "b"), new Pair("a", "c")];
+    const desired = new CompressedNode<string>(
+        [["a"]],
+        [new CompressedNode([["b"], ["c"]], [new CompressedNode(), new CompressedNode()])]
+    );
+
 	const even = makeEvenTree(tree.decompress(), pairs);
-	expectSuffixTreesEquality(even, desired.decompress());
+
+    console.log(even.toString());
+    console.log(desired.decompress().toString());
+    
+    expectSuffixTreesEquality(even, desired.decompress()).toBe(true);
 });
