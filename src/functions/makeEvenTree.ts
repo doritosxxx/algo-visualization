@@ -1,14 +1,17 @@
 import Pair from "../class/Pair";
-import { SuffixTreeEdge, SuffixTreeNode } from "../class";
+import { Root, Edge } from "../class";
 import { character } from "../types";
+import IEdgeContainer from "../interface/IEdgeContainer";
+
+
 
 // This function can't change substrings in-place because new tree type can be different.
-function unfold<T extends character>(tree: SuffixTreeNode<number>, pairs: Pair<T>[]): SuffixTreeNode<T> {
-    const unfolded = new SuffixTreeNode<T>();
+function unfold<T extends character>(tree: IEdgeContainer<number>, pairs: Pair<T>[]): IEdgeContainer<T> {
+    const unfolded = new Root<T>();
     for (const edge of tree.edges) {
-        const word = edge.substring.map((letter) => pairs[letter]).flatMap((pair) => [pair.first, pair.second]);
+        const word = edge.letters.map((letter) => pairs[letter]).flatMap((pair) => [pair.first, pair.second]);
 
-        const unfolderEdge = new SuffixTreeEdge<T>(word);
+        const unfolderEdge = new Edge<T>(word);
         unfolderEdge.endNode = unfold(edge.endNode, pairs);
         unfolded.edges.push(unfolderEdge);
     }
@@ -67,9 +70,9 @@ function fixCommonBeginnings<T extends character>(tree: SuffixTreeNode<T>): void
 
 // Step 2.
 export default function makeEvenTree<T extends character>(
-    tree: SuffixTreeNode<number>,
+    tree: Root<number>,
     pairs: Pair<T>[]
-): SuffixTreeNode<T> {
+): Root<T> {
     const evenTree = unfold(tree, pairs);
     fixCommonBeginnings(evenTree);
     return evenTree;
