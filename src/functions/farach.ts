@@ -23,4 +23,6 @@ export default function farach<T extends character>(word: T[]): Root<T> {
     const tree = farach(compressed);
 
     const evenTree = makeEvenTree(tree, unique_);
+
+
 }
