@@ -1,5 +1,5 @@
 import { character, word } from "../../src/types";
-import { Pair, SuffixTreeEdge, SuffixTreeNode } from "../../src/class";
+import { Pair, Edge, Root } from "../../src/class";
 import { makeEvenTree } from "../../src/functions";
 
 class CompressedNode<T extends character> {
@@ -14,11 +14,11 @@ class CompressedNode<T extends character> {
             );
     }
 
-    public decompress(): SuffixTreeNode<T> {
-        const root = new SuffixTreeNode<T>();
+    public decompress(letters: word<T> = []): Edge<T> {
+        const root = new Edge<T>(letters);
         for (let i = 0; i < this.substrings.length; i++) {
-            const edge = new SuffixTreeEdge<T>(this.substrings[i]);
-            edge.endNode = this.childNodes[i].decompress();
+            const edge = this.childNodes[i].decompress();
+			edge.letters = this.substrings[i];
             root.edges.push(edge);
         }
         return root;
@@ -36,34 +36,34 @@ function areArraysEqual<T>(first: T[], second: T[]): boolean {
     return first.length == second.length && first.every((element, index) => second[index] == element);
 }
 
-function areTreesEqual<T extends character>(first: SuffixTreeNode<T>, second: SuffixTreeNode<T>): boolean {
+function areTreesEqual<T extends character>(first: Edge<T>, second: Edge<T>): boolean {
     if (first.edges.length != second.edges.length) {
         return false;
     }
 
     return first.edges.every(
         (edge, i) =>
-            areArraysEqual(edge.substring, second.edges[i].substring) &&
-            areTreesEqual(edge.endNode, second.edges[i].endNode)
+            areArraysEqual(edge.letters, second.edges[i].letters) &&
+            areTreesEqual(edge, second.edges[i])
     );
 }
 
 function expectSuffixTreesEquality<T extends character>(
-    first: SuffixTreeNode<T>,
-    second: SuffixTreeNode<T>
+    first: Edge<T>,
+    second: Edge<T>
 ): jest.JestMatchers<boolean> {
     return expect(areTreesEqual(first, second));
 }
 
 test("One edge. o-o", () => {
-    const tree = new SuffixTreeNode<number>();
-    tree.edges.push(new SuffixTreeEdge<number>([0]));
+    const tree = new Root<number>();
+    tree.edges.push(new Edge<number>([0]));
 
     const pairs: Pair<string>[] = [new Pair("a", "b")];
     const even = makeEvenTree(tree, pairs);
 
-    const desiredTree = new SuffixTreeNode<string>();
-    desiredTree.edges.push(new SuffixTreeEdge<string>(["a", "b"]));
+    const desiredTree = new Root<string>();
+    desiredTree.edges.push(new Edge<string>(["a", "b"]));
 
     expectSuffixTreesEquality(even, desiredTree).toBe(true);
 });
