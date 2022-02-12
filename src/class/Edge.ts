@@ -4,7 +4,7 @@ import { character, word } from "../types";
 // Узлы содержат массив ребер.
 // Ребра упорядочены по первому символу.
 export default class Edge<T extends character> {
-    public edges: Edge<T>[];
+    public edges: Edge<T>[] = [];
     public letters: word<T>;
     public readonly type: "odd" | "even" | null = null;
 
