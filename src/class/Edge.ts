@@ -1,7 +1,7 @@
 import { character, word } from "../types";
 
 // Ребро сжатого суффиксного дерева.
-// Узлы содержат массив ребер.
+// Содержит массив исходящих ребер.
 // Ребра упорядочены по первому символу.
 export default class Edge<T extends character> {
     public edges: Edge<T>[] = [];
