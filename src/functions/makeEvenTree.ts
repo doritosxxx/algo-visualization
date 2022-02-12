@@ -10,7 +10,7 @@ function unfold<T extends character>(node: Edge<number>, pairs: Pair<T>[]): Edge
     if (node instanceof Root) {
         unfolded = new Root<T>();
     } else if (node instanceof Leaf) {
-        unfolded = new Leaf(letters, (node as Leaf<T>).suffixIndex);
+        unfolded = new Leaf(letters, (node as Leaf<T>).suffixIndex * 2);
     } else {
         unfolded = new Edge<T>(letters);
     }
@@ -71,7 +71,7 @@ function fixCommonBeginnings<T extends character>(tree: Edge<T>): void {
 
 // Step 2.
 export default function makeEvenTree<T extends character>(tree: Root<number>, pairs: Pair<T>[]): Root<T> {
-    const evenTree : Root<T> = unfold(tree, pairs);
+    const evenTree: Root<T> = unfold(tree, pairs);
     fixCommonBeginnings(evenTree);
     return evenTree;
 }
