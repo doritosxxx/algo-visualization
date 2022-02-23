@@ -3,9 +3,7 @@ import { character } from "../types";
 
 // Превращает строку в массив пар символов.
 // "abcae" -> [("a","b"), ("c", "a"), ("e", null)]
-export default function splitIntoPairs<T extends character>(
-    input: T[]
-): Pair<T>[] {
+export default function splitIntoPairs<T extends character>(input: T[]): Pair<T>[] {
     const pairs: Pair<T>[] = [];
 
     for (let i = 0; i < input.length; i += 2) {
