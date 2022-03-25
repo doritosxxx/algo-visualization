@@ -6,7 +6,7 @@
         "moduleResolution": "node",
         "module": "CommonJS",
         "outDir": "./build",
-        "rootDir": "./src",
+        "rootDir": "src",
         "alwaysStrict": true,
         "esModuleInterop": true,
         "types": ["node"],

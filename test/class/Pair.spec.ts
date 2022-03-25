@@ -1,4 +1,4 @@
-import Pair from '../../src/class/Pair'
+import Pair from '../../src/algorithm/class/Pair'
 
 test("String equality", () => {
 	const first = new Pair<string>("a", "c");

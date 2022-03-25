@@ -1,7 +1,7 @@
-import Pair from "../../src/class/Pair";
-import radixSort from "../../src/functions/radixSort";
-import IComparable from "../../src/interface/IComparable";
-import { character } from "../../src/types";
+import Pair from "../../src/algorithm/class/Pair";
+import radixSort from "../../src/algorithm/functions/radixSort";
+import IComparable from "../../src/algorithm/interface/IComparable";
+import { character } from "../../src/algorithm/types";
 
 function areEqual<T extends IComparable<T>>(first: T[], second: T[]): boolean {
     return first.length == second.length && first.every((pair, index) => pair.equals(second[index]));

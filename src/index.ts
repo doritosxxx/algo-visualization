@@ -1,8 +1,8 @@
-import Pair from "./class/Pair";
-import farach from "./functions/farach";
-import radixSort from "./functions/radixSort";
+import Pair from "./algorithm/class/Pair";
+import farach from "./algorithm/functions/farach";
+import radixSort from "./algorithm/functions/radixSort";
 
-const string: string = "11111111";
+const string: string = "12";
 const suffixTree = farach([...string]);
 console.log(suffixTree);
 

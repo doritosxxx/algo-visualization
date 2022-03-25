@@ -1,6 +1,6 @@
-import IComparable from "../../src/interface/IComparable";
-import unique from "../../src/functions/unique";
-import Pair from "../../src/class/Pair";
+import IComparable from "../../src/algorithm/interface/IComparable";
+import unique from "../../src/algorithm/functions/unique";
+import Pair from "../../src/algorithm/class/Pair";
 
 function areEqual<T extends IComparable<T>>(first: T[], second: T[]): boolean {
     return first.length == second.length && first.every((pair, index) => pair.equals(second[index]));

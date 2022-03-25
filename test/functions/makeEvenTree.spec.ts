@@ -1,6 +1,6 @@
-import { character, word } from "../../src/types";
-import { Pair, Edge, Root } from "../../src/class";
-import { makeEvenTree } from "../../src/functions";
+import { character, word } from "../../src/algorithm/types";
+import { Pair, Edge, Root } from "../../src/algorithm/class";
+import { makeEvenTree } from "../../src/algorithm/functions";
 
 class CompressedNode<T extends character> {
     public constructor(
