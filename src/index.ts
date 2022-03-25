@@ -1,8 +1,7 @@
-import Pair from "./algorithm/class/Pair";
-import farach from "./algorithm/functions/farach";
-import radixSort from "./algorithm/functions/radixSort";
+import { farach } from "./algorithm/functions";
 
-const string: string = "12";
-const suffixTree = farach([...string]);
-console.log(suffixTree);
+document.addEventListener("DOMContentLoaded", function () {
+    console.log("first");
 
+	console.log(farach(["1"]))
+});

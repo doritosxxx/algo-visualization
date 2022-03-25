@@ -10,9 +10,9 @@
         "alwaysStrict": true,
         "esModuleInterop": true,
         "types": ["node"],
-        "declaration": true,
-        "emitDeclarationOnly": true,
-        "isolatedModules": true,
-        "lib": ["es2019"]
+        "declaration": false,
+        "emitDeclarationOnly": false,
+        "isolatedModules": false,
+        "lib": ["es2019", "DOM"]
     }
 }
