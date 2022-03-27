@@ -5,14 +5,12 @@
         "target": "ES6",
         "moduleResolution": "node",
         "module": "CommonJS",
-        "outDir": "./build",
+        "outDir": "build",
         "rootDir": "src",
         "alwaysStrict": true,
         "esModuleInterop": true,
         "types": ["node"],
-        "declaration": false,
-        "emitDeclarationOnly": false,
-        "isolatedModules": false,
-        "lib": ["es2019", "DOM"]
+        "lib": ["es2019", "DOM"],
+		"sourceMap": true,
     }
 }
