@@ -66,8 +66,6 @@ function getTree(): Root<number> {
     tree.edges.push(...[nested, new Edge([]), new Edge([])]);
     tree.letters.push(...[1, 4, 6]);
 
-	throw new Error("asd")
-
     return tree;
 }
 

@@ -1,41 +1,41 @@
 {
-  "name": "algo-visualization",
-  "version": "1.0.0",
-  "description": "",
-  "main": "build/index.js",
-  "scripts": {
-    "test": "jest",
-    "coverage": "jest --coverage",
-    "start": "ts-node src/index.ts",
-    "build": "webpack",
-    "serve": "webpack serve"
-  },
-  "keywords": [
-    "algorithm",
-    "visualization",
-    "Farach",
-    "suffix-tree"
-  ],
-  "author": "doritosxxx",
-  "license": "ISC",
-  "devDependencies": {
-    "@babel/cli": "^7.16.0",
-    "@babel/core": "^7.16.5",
-    "@babel/preset-env": "^7.16.5",
-    "@babel/preset-typescript": "^7.16.5",
-    "@types/d3": "^7.1.0",
-    "@types/jest": "^27.0.3",
-    "babel-jest": "^27.4.5",
-    "babel-loader": "^8.2.4",
-    "html-webpack-plugin": "^5.5.0",
-    "jest": "^27.4.5",
-    "ts-node": "^10.4.0",
-    "typescript": "^4.5.4",
-    "webpack": "^5.70.0",
-    "webpack-cli": "^4.9.2",
-    "webpack-dev-server": "^4.7.4"
-  },
-  "dependencies": {
-    "d3": "^7.3.0"
-  }
+	"name": "algo-visualization",
+	"version": "1.0.0",
+	"description": "",
+	"main": "build/index.js",
+	"scripts": {
+		"test": "jest",
+		"coverage": "jest --coverage",
+		"start": "ts-node src/index.ts",
+		"build": "webpack",
+		"serve": "webpack serve"
+	},
+	"keywords": [
+		"algorithm",
+		"visualization",
+		"Farach",
+		"suffix-tree"
+	],
+	"author": "doritosxxx",
+	"license": "ISC",
+	"devDependencies": {
+		"@babel/cli": "^7.16.0",
+		"@babel/core": "^7.16.5",
+		"@babel/preset-env": "^7.16.5",
+		"@babel/preset-typescript": "^7.16.5",
+		"@types/d3": "^7.1.0",
+		"@types/jest": "^27.0.3",
+		"babel-jest": "^27.4.5",
+		"babel-loader": "^8.2.4",
+		"html-webpack-plugin": "^5.5.0",
+		"jest": "^27.4.5",
+		"ts-node": "^10.4.0",
+		"typescript": "^4.5.4",
+		"webpack": "^5.70.0",
+		"webpack-cli": "^4.9.2",
+		"webpack-dev-server": "^4.7.4"
+	},
+	"dependencies": {
+		"d3": "^7.3.0"
+	}
 }
