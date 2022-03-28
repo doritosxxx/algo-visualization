@@ -7,6 +7,8 @@ type T = Edge<number>;
 document.addEventListener("DOMContentLoaded", function () {
     const tree = getTree();
 
+    getUpdateFunction(tree);
+
     const width = 1000;
     const height = 600;
 
@@ -69,4 +71,11 @@ function getTree(): Root<number> {
     return tree;
 }
 
-function update(root: Edge<number>) {}
+function getUpdateFunction(root: Edge<number>) {
+    function update() {
+        root.edges.push(new Edge<number>([]))
+        root.letters.push(1)
+		return root.edges.length;
+    }
+    console.log(update);
+}
