@@ -1,8 +1,11 @@
+import './style'
+
 import { farach } from "./algorithm/functions";
 import { Edge, Root } from "./algorithm/class";
 import * as d3 from "d3";
 
 type T = Edge<number>;
+
 
 document.addEventListener("DOMContentLoaded", function () {
     const tree = getTree();
@@ -14,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const layout = d3.tree<Edge<number>>().size([width, height])(d3.hierarchy(tree, (node) => node.edges));
 
-    const svg = d3.select("body").append("svg").attr("width", width).attr("height", height);
+    const svg = d3.select("#frame > svg").append("svg").attr("width", width).attr("height", height);
 
     const edges = svg
         .append("g")
