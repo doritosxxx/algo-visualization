@@ -1,2 +1,4 @@
+import "./reset.css";
 import "./main.css";
-import "./workspace.css";
+import "./buttons.css";
+import "./variables.css";

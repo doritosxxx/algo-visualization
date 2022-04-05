@@ -1,0 +1,10 @@
+.button-styled {
+    background-color: var(--color-button);
+    border-radius: 3px;
+    border: 1px solid darkgray;
+    color: #fff;
+    padding: 5% 10%;
+    font: 700 15px sans-serif;
+    box-sizing: border-box;
+	cursor: pointer;
+}
