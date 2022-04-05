@@ -36,6 +36,8 @@ module.exports = {
         },
         compress: true,
         port: 9000,
+        watchFiles: ['src/**/*'],
+		
     },
     devtool: "inline-source-map",
 };

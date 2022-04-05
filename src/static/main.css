@@ -13,30 +13,55 @@ body {
 
 footer,
 header {
-    height: 50px;
-    background-color: blueviolet;
+    min-height: 50px;
+    background-color: cadetblue;
+	padding: 10px 40px;
 }
 
 content {
     flex-grow: 1;
-	overflow-x: hidden;
-	margin: 10px 0;
+    margin: 10px 0;
 
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-#frame{
-	width: 90%;
-	padding: 2px;
-	display: flex;
-	height: 500px;
+#frame {
+    padding: 2px;
+	margin: 5px 20px;
 }
 
 #frame > svg {
-	box-shadow: 0 0 0 2px  black;
+    box-shadow: 0 0 0 2px black;
+    width: 100%;
+}
+
+#controls {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#controls__frames-wrapper {
+    display: flex;
+    justify-content: center;
 	width: 100%;
-	height: 100%;
+}
+
+#frames-slider {
+	width: 50%;
+}
+
+.change_frame_button{
+	width: 50px;
+	height: 50px;
+	border: 1px solid black;
+	box-sizing: border-box;
+	border-radius: 2px;
+
+	display: flex;
+	justify-items: center;
+	align-items: center;
 }

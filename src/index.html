@@ -5,24 +5,34 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Document</title>
-
     </head>
     <body>
-		<header></header>
-		<content>
-			<div id="frame">
-				<svg></svg>
-			</div>
-			<div id="controls">
-				<div id="controls__frames-wrapper">
-					<div id="frames-slider">
-						<div class="change_frame_button" id="frames-button--next"></div>
-						<input type="range" name="frame" id="frames-slider">
-						<div class="change_frame_button" id="frames-button--prev"></div>
-					</div>
-				</div>
-			</div>
-		</content>
-		<footer></footer>
-	</body>
+        <header>
+            <div id="main-title">Алгоритм Фараха</div>
+        </header>
+        <content>
+            <div id="frame">
+                <svg width="1000" height="600">
+                    <rect x="100" y="150" width="60" height="60" stroke="gray" stroke-size="3" fill="magenta"></rect>
+
+                    <g id="frames-separator" transform="translate(800 0)">
+                        <svg width="200" height="600"></svg>
+                        <g>
+                            <line x1="0" y1="0" x2="0" y2="600" stroke="black" stoke-width="5"></line>
+                            <rect width="8" height="30" fill="gray" x="-4" y="285" cursor="col-resize"></rect>
+                        </g>
+                    </g>
+                </svg>
+            </div>
+        </content>
+        <footer>
+            <div id="controls">
+                <div id="controls__frames-wrapper">
+                    <div class="change_frame_button" id="frames-button--prev"><</div>
+                    <input type="range" name="frame" id="frames-slider" min="1" max="1" />
+                    <div class="change_frame_button" id="frames-button--next">></div>
+                </div>
+            </div>
+        </footer>
+    </body>
 </html>
