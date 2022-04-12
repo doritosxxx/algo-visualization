@@ -13,24 +13,17 @@
         <content>
             <div id="frame">
                 <div class="ratio-5x3">
-                    <svg class="proportional" width="1000" height="600" viewbox="0 0 1000 600">
-                        <rect
-                            x="100"
-                            y="150"
-                            width="60"
-                            height="60"
-                            stroke="gray"
-                            stroke-size="3"
-                            fill="magenta"
-                        ></rect>
-                        <g id="frames-separator" transform="translate(800 0)">
-                            <svg width="200" height="600"></svg>
-                            <g>
-                                <line x1="0" y1="0" x2="0" y2="600" stroke="black" stoke-width="5"></line>
-                                <rect width="8" height="30" fill="gray" x="-4" y="285" cursor="col-resize"></rect>
-                            </g>
-                        </g>
-                    </svg>
+                    <div class="proportional split-panel">
+                        <div class="split-panel__left">
+                            <svg id="svg"></svg>
+                        </div>
+                        <div class="split-panel__right">
+							<div class="stack-title">Stack</div>
+                            <div class="stack">
+								
+							</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </content>
@@ -38,7 +31,7 @@
             <div id="controls">
                 <div id="controls__frames-wrapper">
                     <button class="change_frame_button button-styled" id="frames-button--prev">&lt;</button>
-                    <input type="range" name="frame" id="frames-slider" min="1" max="1" />
+                    <input type="range" name="frame" id="frames-slider" min="0" max="0" value="0" step="1" />
                     <button class="change_frame_button button-styled" id="frames-button--next">&gt;</button>
                 </div>
                 <div id="controls__buttons">
