@@ -1,7 +1,6 @@
 import * as d3 from "d3";
 import { character } from "../algorithm/types";
 import StringView from "../objects/StringView";
-import ViewState from "../ViewState";
 import TransitionBase from "./TransitionBase";
 
 export default class ShowStringTransition extends TransitionBase {

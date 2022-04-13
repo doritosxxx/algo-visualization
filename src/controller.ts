@@ -1,7 +1,6 @@
 import { makeSuffixTree } from "./algorithm/steps/makeSuffixTree";
 import RootTransition from "./transitions/RootTransition";
-import type TransitionBase from "./transitions/TransitionBase";
-import ViewState from "./ViewState";
+import TransitionBase from "./transitions/TransitionBase";
 
 let isVisualizing = false;
 
@@ -9,15 +8,12 @@ let isVisualizing = false;
 let frameInterval = 500;
 let interval = null;
 
-let state: ViewState = null;
-
 let transitions = 0;
 let introduced = 0;
 let transitionTail: TransitionBase = new RootTransition();
 let transitionHead = transitionTail;
 
 export function restart(string: string) {
-    state = new ViewState([]);
 
     makeSuffixTree(string);
 }
@@ -38,7 +34,6 @@ export function addTransition(transition: TransitionBase) {
 }
 
 export function moveNext() {
-    console.log(transitionHead);
     if (transitionHead.next == null) {
         return;
     }
