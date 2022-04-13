@@ -1,5 +1,6 @@
-import { reducer } from "./test/reducer";
-import TransitionBase from "./transitions/TransitionBase";
+import { makeSuffixTree } from "./algorithm/steps/makeSuffixTree";
+import RootTransition from "./transitions/RootTransition";
+import type TransitionBase from "./transitions/TransitionBase";
 import ViewState from "./ViewState";
 
 let isVisualizing = false;
@@ -10,34 +11,39 @@ let interval = null;
 
 let state: ViewState = null;
 
-let transitions: TransitionBase[] = [];
+let transitions = 0;
 let introduced = 0;
+let transitionTail: TransitionBase = new RootTransition();
+let transitionHead = transitionTail;
 
 export function restart(string: string) {
     state = new ViewState([]);
-    transitions = [];
 
-    reducer();
+    makeSuffixTree(string);
 }
 
 export function addTransition(transition: TransitionBase) {
-    transitions.push(transition);
+    transitions++;
+
+    transitionTail.append(transition);
+    transitionTail = transitionTail.next;
 
     window.dispatchEvent(
         new CustomEvent("transitionAmountChanged", {
             detail: {
-                value: transitions.length,
+                value: transitions,
             },
         })
     );
 }
 
 export function moveNext() {
-    if (introduced >= transitions.length) {
+    console.log(transitionHead);
+    if (transitionHead.next == null) {
         return;
     }
 
-    transitions[introduced].introduce(state);
+    transitionHead = transitionHead.introduceNext();
     introduced++;
 
     window.dispatchEvent(
@@ -50,10 +56,11 @@ export function moveNext() {
 }
 
 export function movePrev() {
-    if (introduced == 0) {
+    if (transitionHead.previous == null) {
         return;
     }
-    transitions[introduced - 1].revoke(state);
+    transitionHead.revoke();
+    transitionHead = transitionHead.previous;
     introduced--;
 
     window.dispatchEvent(
