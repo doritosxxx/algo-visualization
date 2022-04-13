@@ -110,6 +110,7 @@ content {
 .split-panel__left {
     resize: horizontal;
     overflow: hidden;
+	width: 80%;
 }
 
 .split-panel__left > svg {
