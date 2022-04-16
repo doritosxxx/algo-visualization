@@ -13,8 +13,18 @@ window.addEventListener("transitionIndexChanged", function (event: CustomEventIn
 function main() {
     document.querySelector("#button-start").addEventListener("click", onStartVisualizationButtonClick);
 
+    // Button click.
     document.querySelector("#frames-button--prev").addEventListener("click", movePrev);
     document.querySelector("#frames-button--next").addEventListener("click", moveNext);
+
+    // Keyboard key press.
+    document.addEventListener("keydown", function (event) {
+        if (event.key == "ArrowLeft") {
+            movePrev();
+        } else if (event.key == "ArrowRight") {
+            moveNext();
+        }
+    });
 }
 
 function onStartVisualizationButtonClick() {
