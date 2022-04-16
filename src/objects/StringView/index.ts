@@ -1,7 +1,6 @@
 import IDOMRepresentable from "../IDOMRepresentable";
-import IVisualizable from "../IVisualizable";
 
-export default class StringView implements IDOMRepresentable, IVisualizable {
+export default class StringView implements IDOMRepresentable {
     private string: string = "";
     domElement: HTMLElement;
 
@@ -14,8 +13,6 @@ export default class StringView implements IDOMRepresentable, IVisualizable {
         this.domElement = document.createElement("div");
         this.domElement.classList.add("string-view");
         this.update();
-
-        console.log(this);
     }
 
     update() {
