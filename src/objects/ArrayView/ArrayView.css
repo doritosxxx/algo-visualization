@@ -15,7 +15,7 @@
 
 .array-view.split-into-pairs > div:nth-child(odd)::after {
     content: ",";
-	color: initial;
+    color: initial;
 }
 
 .array-view.highlight-odd > div:nth-child(odd) {
