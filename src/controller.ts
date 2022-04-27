@@ -14,7 +14,6 @@ let transitionTail: TransitionBase = new RootTransition();
 let transitionHead = transitionTail;
 
 export function restart(string: string) {
-
     makeSuffixTree(string);
 }
 
