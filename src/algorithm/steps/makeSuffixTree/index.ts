@@ -1,4 +1,5 @@
 import { addTransition } from "../../../controller";
+import { RemoveRepeatingPairsTransition } from "../../../transitions";
 import ShowArrayTransition from "../../../transitions/ShowArrayTransition";
 import SortPairsByFirstElementTransition from "../../../transitions/SortPairsByFirstElementTransition";
 import SortPairsBySecondElementTransition from "../../../transitions/SortPairsBySecondElementTransition";
@@ -35,7 +36,8 @@ function suffixTree<T extends character>(word: T[]): Root<T> {
 
 
     const _unique = unique(pairs);
-    // TODO: transition
+    addTransition(new RemoveRepeatingPairsTransition(_unique));
+    
 
     const compressed = reindex(pairs, _unique);
     // TODO: transition
