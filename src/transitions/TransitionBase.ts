@@ -21,6 +21,8 @@ export default abstract class TransitionBase {
     }
 
     introduce() {
+		// Debug.
+        console.warn("Introduced: " + this.constructor.name);
         this.introduced = true;
         this._introduce();
     }
