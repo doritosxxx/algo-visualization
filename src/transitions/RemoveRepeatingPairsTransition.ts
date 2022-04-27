@@ -2,8 +2,7 @@ import { Pair } from "../algorithm/class";
 import { character } from "../algorithm/types";
 import { flatPairArray } from "../helpers";
 import ArrayView from "../objects/ArrayView";
-import SortPairsByFirstElementTransition from "./SortPairsByFirstElementTransition";
-import TransitionBase from "./TransitionBase";
+import { SortPairsByFirstElementTransition, TransitionBase } from ".";
 
 export default class RemoveRepeatingPairsTransition extends TransitionBase {
     public arrayView: ArrayView;
@@ -26,14 +25,12 @@ export default class RemoveRepeatingPairsTransition extends TransitionBase {
         );
     }
 
-	
-
     // TODO
     _revoke() {
-		const prev = this.previous as SortPairsByFirstElementTransition;
+        const prev = this.previous as SortPairsByFirstElementTransition;
         this.arrayView.selection.node().classList.add("highlight-odd");
-		prev.updateView();
-		
+        prev.updateView();
+
         this.arrayView = null;
     }
 

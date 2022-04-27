@@ -2,9 +2,7 @@ import { Pair } from "../algorithm/class";
 import { character } from "../algorithm/types";
 import { flatPairArray } from "../helpers";
 import ArrayView from "../objects/ArrayView";
-import SortPairsBySecondElementTransition from "./SortPairsBySecondElementTransition";
-import SplitIntoPairsTransition from "./SplitIntoPairsTransition";
-import TransitionBase from "./TransitionBase";
+import { SortPairsBySecondElementTransition, TransitionBase } from ".";
 
 export default class SortPairsByFirstElementTransition extends TransitionBase {
     arrayView: ArrayView;

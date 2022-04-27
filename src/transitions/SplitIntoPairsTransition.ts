@@ -1,8 +1,7 @@
 import { Pair } from "../algorithm/class";
 import { character } from "../algorithm/types";
 import ArrayView from "../objects/ArrayView";
-import ShowStringTransition from "./ShowArrayTransition";
-import TransitionBase from "./TransitionBase";
+import { ShowArrayTransition, TransitionBase } from ".";
 
 export default class SplitIntoPairsTransition extends TransitionBase {
     public arrayView: ArrayView;
@@ -10,7 +9,7 @@ export default class SplitIntoPairsTransition extends TransitionBase {
 
     // Previous: ShowArrayTransition
     _introduce() {
-        const prev = this.previous as ShowStringTransition;
+        const prev = this.previous as ShowArrayTransition;
         this.arrayView = prev.arrayView;
 
         // Update data.
@@ -33,7 +32,7 @@ export default class SplitIntoPairsTransition extends TransitionBase {
     }
 
     _revoke() {
-        const prev = this.previous as ShowStringTransition;
+        const prev = this.previous as ShowArrayTransition;
 
         this.arrayView.selection.node().classList.remove("split-into-pairs");
         this.arrayView.data(prev.word.map(String)).join(

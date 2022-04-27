@@ -1,13 +1,13 @@
 import * as d3 from "d3";
 import { character } from "../algorithm/types";
 import ArrayView from "../objects/ArrayView";
-import TransitionBase from "./TransitionBase";
+import { TransitionBase } from ".";
 
 export default class ShowArrayTransition extends TransitionBase {
     public arrayView: ArrayView;
     public readonly word: character[];
 
-	// Previous: RootTransition
+    // Previous: RootTransition
     _introduce() {
         this.arrayView = new ArrayView();
         d3.select(".board .layout-centered").append(() => this.arrayView.selection.node());
