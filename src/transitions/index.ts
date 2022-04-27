@@ -4,3 +4,4 @@ export { default as SortPairsBySecondElementTransition } from "./SortPairsBySeco
 export { default as SplitIntoPairsTransition } from "./SplitIntoPairsTransition";
 export { default as TransitionBase } from "./TransitionBase";
 export { default as SortPairsByFirstElementTransition } from "./SortPairsByFirstElementTransition";
+export { default as RemoveRepeatingPairsTransition } from "./RemoveRepeatingPairsTransition";

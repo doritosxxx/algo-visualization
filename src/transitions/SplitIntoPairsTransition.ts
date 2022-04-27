@@ -27,7 +27,8 @@ export default class SplitIntoPairsTransition extends TransitionBase {
 
         this.arrayView.data(array).join(
             (enter) => enter.append("div").text((d) => d),
-            (update) => update.text((d) => d)
+            (update) => update.text((d) => d),
+            (exit) => exit.remove()
         );
     }
 

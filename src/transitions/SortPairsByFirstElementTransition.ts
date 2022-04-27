@@ -1,5 +1,6 @@
 import { Pair } from "../algorithm/class";
 import { character } from "../algorithm/types";
+import { flatPairArray } from "../helpers";
 import ArrayView from "../objects/ArrayView";
 import SortPairsBySecondElementTransition from "./SortPairsBySecondElementTransition";
 import SplitIntoPairsTransition from "./SplitIntoPairsTransition";
@@ -17,21 +18,26 @@ export default class SortPairsByFirstElementTransition extends TransitionBase {
         this.arrayView.selection.node().classList.remove("highlight-even");
         this.arrayView.selection.node().classList.add("highlight-odd");
 
-        const array = this.pairs.flatMap((p) => [p.first, p.second]).map((e) => (e == null ? "$" : e + ""));
+        this.updateView();
+    }
+
+    updateView() {
+        const array = flatPairArray(this.pairs);
         this.arrayView.data(array).join(
-            (enter) => enter,
-            (update) => update.text(d=>d)
+            (enter) => enter.append("div").text((d) => d),
+            (update) => update.text((d) => d),
+            (exit) => exit.remove()
         );
     }
 
     _revoke() {
-		const prev = this.previous as SortPairsBySecondElementTransition;
+        const prev = this.previous as SortPairsBySecondElementTransition;
 
         this.arrayView.selection.node().classList.remove("highlight-odd");
         this.arrayView.selection.node().classList.add("highlight-even");
 
-		prev.updateView();
-		this.arrayView = null;
+        prev.updateView();
+        this.arrayView = null;
     }
 
     constructor(sortedPairs: Pair<character>[]) {
