@@ -20,7 +20,7 @@ export function makeSuffixTree(string: string): Root<string> {
 
 function suffixTree<T extends character>(word: T[]): Root<T> {
     let pairs = splitIntoPairs(word);
-	addTransition(new ShowArrayTransition(pairs));
+    addTransition(new ShowArrayTransition(pairs));
 
     // Тривиальный случай.
     if (word.length == 1) {
@@ -40,9 +40,9 @@ function suffixTree<T extends character>(word: T[]): Root<T> {
     const _unique = unique(pairs);
     addTransition(new HighlightRepeatingPairsTransition(pairs, _unique));
     addTransition(new RemoveRepeatingPairsTransition(_unique));
+    addTransition(new AppendPairIndicesTransition(_unique.map((_, i) => i)));
 
     const compressed = reindex(pairs, _unique);
-    addTransition(new AppendPairIndicesTransition(compressed));
 
     const tree = suffixTree(compressed);
     // TODO: transition

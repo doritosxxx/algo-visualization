@@ -76,3 +76,16 @@
     top: 0;
     left: -0.9em;
 }
+
+/* index */
+
+.pair--index {
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+.pair--index.folded {
+    top: -1em;
+    opacity: 0.1;
+}

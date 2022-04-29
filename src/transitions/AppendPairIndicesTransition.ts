@@ -1,22 +1,24 @@
-import ArrayView from "../objects/ArrayView";
+import PairArrayView from "../objects/PairArrayView";
 import RemoveRepeatingPairsTransition from "./RemoveRepeatingPairsTransition";
 import TransitionBase from "./TransitionBase";
 
 export default class AppendPairIndicesTransition extends TransitionBase {
-    public arrayView: ArrayView;
+    public pairArrayView: PairArrayView;
 
     public readonly indices: number[];
 
     // Previous: RemoveRepeatingPairsTransition
     _introduce() {
         const prev = this.previous as RemoveRepeatingPairsTransition;
-        this.arrayView = prev.arrayView;
+        this.pairArrayView = prev.pairArrayView;
 
-        this.arrayView.selection.node().classList.add("pairs-indexed");
+        this.pairArrayView.setData(prev.pairs, this.indices);
     }
+
     _revoke() {
-        this.arrayView.selection.node().classList.remove("pairs-indexed");
-        this.arrayView = null;
+        const prev = this.previous as RemoveRepeatingPairsTransition;
+        this.pairArrayView.setData(prev.pairs, []);
+        this.pairArrayView = null;
     }
 
     constructor(indices: number[]) {

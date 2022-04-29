@@ -5,29 +5,29 @@ import { SortPairsByFirstElementTransition, TransitionBase } from ".";
 import HighlightRepeatingPairsTransition from "./HighlightRepeatingPairsTransition";
 
 export default class RemoveRepeatingPairsTransition extends TransitionBase {
-    public arrayView: PairArrayView;
+    public pairArrayView: PairArrayView;
     public readonly pairs: Pair<character>[];
     public indices: number[];
 
     _introduce() {
         const prev = this.previous as HighlightRepeatingPairsTransition;
-        this.arrayView = prev.pairArrayView;
+        this.pairArrayView = prev.pairArrayView;
         this.indices = prev.indices;
 
-        this.arrayView.hideFirstElement();
+        this.pairArrayView.hideFirstElement();
         this.updateView();
     }
 
     updateView() {
-        this.arrayView.remove(this.indices);
+        this.pairArrayView.remove(this.indices);
     }
 
     _revoke() {
         const prev = this.previous as HighlightRepeatingPairsTransition;
-        this.arrayView.setPairs(prev.pairs);
-        this.arrayView.highlightPairsWithBorder(prev.indices);
+        this.pairArrayView.setPairs(prev.pairs);
+        this.pairArrayView.highlightPairsWithBorder(prev.indices);
 
-        this.arrayView = null;
+        this.pairArrayView = null;
     }
 
     constructor(unique: Pair<character>[]) {

@@ -6,7 +6,8 @@ import "./style.css";
 export default class PairArrayView {
     public readonly container: d3.Selection<HTMLDivElement, undefined, null, undefined>;
 
-    private pairs: Pair<character>[];
+    private pairs: Pair<character>[] = [];
+    private indices: number[] = [];
 
     public constructor() {
         this.container = d3.create("div").attr("class", "pair-array-view");
@@ -17,7 +18,19 @@ export default class PairArrayView {
     }
 
     public setPairs(pairs: Pair<character>[]) {
+        this.setData(pairs, this.indices);
+    }
+
+    public setIndices(indices: number[]) {
+        this.setData(this.pairs, indices);
+    }
+
+    public setData(pairs: Pair<character>[], indices: number[]) {
         this.pairs = [...pairs];
+        this.indices = [...indices];
+        const indicesString = this.indices.map((e) => "" + e);
+        while (indicesString.length < this.pairs.length) indicesString.push("");
+
         const boxes = this.container
             .selectChildren(".pair-box")
             .data(this.pairs)
@@ -25,6 +38,7 @@ export default class PairArrayView {
                 (enter) => {
                     const boxes = enter.append("div").classed("pair-box", true);
                     boxes.append("div").classed("pair--values", true);
+                    boxes.append("div").classed("pair--index", true);
                     return boxes;
                 },
                 (update) => update,
@@ -42,6 +56,24 @@ export default class PairArrayView {
                 (exit) => exit.remove()
             )
             .text((d) => d ?? "$");
+
+        boxes
+            .data(indicesString)
+            .select(".pair--index")
+            .join(
+                (enter) => enter,
+                (update) => update,
+                (exit) => exit.remove()
+            )
+            .text((index) => index)
+            .style("transition", "none")
+            .classed("folded", true)
+            .call((item) => {
+                setTimeout(function () {
+                    item.style("transition", "top var(--frame-length), opacity var(--frame-length)")
+                    .classed("folded", false);
+                }, 0);
+            });
     }
 
     public showAsArray() {
