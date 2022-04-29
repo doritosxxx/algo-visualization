@@ -1,16 +1,16 @@
 import { Pair } from "../algorithm/class";
 import { character } from "../algorithm/types";
 import { flatPairArray } from "../helpers";
-import ArrayView from "../objects/ArrayView";
+import PairArrayView from "../objects/PairArrayView";
 import { SortPairsByFirstElementTransition, TransitionBase } from ".";
 
 export default class RemoveRepeatingPairsTransition extends TransitionBase {
-    public arrayView: ArrayView;
+    public arrayView: PairArrayView;
     public readonly pairs: Pair<character>[];
 
     _introduce() {
         const prev = this.previous as SortPairsByFirstElementTransition;
-        this.arrayView = prev.arrayView;
+        this.arrayView = prev.pairArrayView;
 
         this.arrayView.selection.node().classList.remove("highlight-odd");
         this.updateView();

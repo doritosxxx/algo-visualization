@@ -1,40 +1,38 @@
 import { Pair } from "../algorithm/class";
 import { character } from "../algorithm/types";
 import { flatPairArray } from "../helpers";
-import ArrayView from "../objects/ArrayView";
+import PairArrayView from "../objects/PairArrayView";
 import { TransitionBase, SplitIntoPairsTransition } from ".";
 
 export default class SortPairsBySecondElementTransition extends TransitionBase {
-    public arrayView: ArrayView;
+    public pairArrayView: PairArrayView;
     public readonly pairs: Pair<character>[];
 
     // Previous: SplitIntoPairsTransition
     _introduce() {
         const prev = this.previous as SplitIntoPairsTransition;
-        this.arrayView = prev.arrayView;
+        this.pairArrayView = prev.pairArrayView;
 
         // Highlight with red font color.
-        this.arrayView.selection.node().classList.add("highlight-even");
-
+        this.pairArrayView.highlightSecondElement();
         this.updateView();
     }
 
     updateView() {
-        const array = flatPairArray(this.pairs);
-        this.arrayView.data(array).join(
-            (enter) => enter.append("div").text((d) => d),
-            (update) => update.text((d) => d),
-            (exit) => exit.remove()
-        );
+        const prev = this.pairArrayView.getPairs();
+        const order = this.pairs.map((pair) => prev.indexOf(pair));
+        this.pairArrayView.reorder(order);
+        this.pairArrayView.setPairs(this.pairs);
     }
 
+	// TODO
     _revoke() {
         const prev = this.previous as SplitIntoPairsTransition;
 
-        this.arrayView.selection.node().classList.remove("highlight-even");
+        this.pairArrayView.hideSecondElement();
         prev.updateView();
 
-        this.arrayView = null;
+        this.pairArrayView = null;
     }
 
     constructor(sortedPairs: Pair<character>[]) {
