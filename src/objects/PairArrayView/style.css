@@ -1,0 +1,59 @@
+.pair-array-view {
+    box-sizing: border-box;
+    border: 1px solid greenyellow;
+    padding: 1px;
+
+    display: flex;
+}
+
+.pair-array-view .pair-box {
+    display: flex;
+    flex-direction: column;
+
+    box-sizing: border-box;
+    border: 1px solid red;
+
+    margin: 0 10px;
+    transition: margin var(--frame-length);
+}
+
+.pair--values,
+.pair--index {
+    text-align: center;
+}
+
+/* variations */
+
+.pair-array-view.highlight-first-element .pair--values > span:nth-child(2) {
+    color: red;
+}
+
+.pair-array-view.highlight-second-element .pair--values > span:nth-child(4) {
+    color: red;
+}
+
+.pair-array-view.pairs-as-array .pair-box {
+    margin: 0;
+}
+
+.pair-array-view:not(.pairs-as-array) .pair--values > span:nth-child(3)::after {
+    content: ",";
+}
+
+/*
+.pair-array-view:not(.pairs-as-array) .pair--values > span:nth-child(1)::after {
+    content: "(";
+}
+.pair-array-view:not(.pairs-as-array) .pair--values > span:nth-child(5)::after {
+    content: ")";
+}
+*/
+
+/* reorder */
+
+.moveable {
+    position: relative;
+    top: 0;
+    left: 0;
+    transition: left var(--frame-length), top var(--frame-length) !important;
+}
