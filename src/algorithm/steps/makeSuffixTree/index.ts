@@ -18,7 +18,8 @@ export function makeSuffixTree(string: string): Root<string> {
 }
 
 function suffixTree<T extends character>(word: T[]): Root<T> {
-    addTransition(new ShowArrayTransition(word));
+    let pairs = splitIntoPairs(word);
+	addTransition(new ShowArrayTransition(pairs));
 
     // Тривиальный случай.
     if (word.length == 1) {
@@ -27,7 +28,6 @@ function suffixTree<T extends character>(word: T[]): Root<T> {
         return root;
     }
 
-    let pairs = splitIntoPairs(word);
     addTransition(new SplitIntoPairsTransition(pairs));
 
     pairs = stableSort(pairs, (pair) => pair.second);
