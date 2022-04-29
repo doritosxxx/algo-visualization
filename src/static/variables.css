@@ -1,4 +1,5 @@
 :root {
     --color-lightblue: #c3c3c3;
     --color-button: #027ad6;
+	--frame-length: 400ms;
 }
