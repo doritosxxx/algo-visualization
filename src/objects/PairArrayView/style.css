@@ -11,7 +11,6 @@
     flex-direction: column;
 
     box-sizing: border-box;
-    border: 1px solid red;
 
     margin: 0 10px;
     transition: margin var(--frame-length);
@@ -56,4 +55,24 @@
     top: 0;
     left: 0;
     transition: left var(--frame-length), top var(--frame-length) !important;
+}
+
+/* remove/keep */
+
+.removeable {
+    color: red;
+    transition: width var(--frame-length), margin var(--frame-length) !important;
+    overflow: hidden;
+}
+
+.red-border {
+    box-shadow: 0 0 0 1px red;
+    position: relative;
+}
+
+.red-border::before {
+    content: "=";
+    position: absolute;
+    top: 0;
+    left: -0.9em;
 }

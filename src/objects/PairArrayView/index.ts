@@ -68,6 +68,17 @@ export default class PairArrayView {
         this.container.classed("highlight-second-element", false);
     }
 
+    public highlightPairsWithBorder(indices: number[]) {
+        const nodes = this.container.selectAll(".pair-box").nodes() as HTMLElement[];
+
+        const bordered = indices.filter((index) => index >= 0 && index < nodes.length).map((index) => nodes[index]);
+        bordered.forEach((node) => node.classList.add("red-border"));
+    }
+
+    public hideBorder() {
+        this.container.selectAll(".pair-box").classed("red-border", false);
+    }
+
     /**
      * Redorders elements in array with corresponding animation.
      * @param order New index order of existing elements.
@@ -108,7 +119,54 @@ export default class PairArrayView {
         setTimeout(() => nodes.forEach((node) => node.style.removeProperty("left")), 0);
     }
 
+    /**
+     * Removes elements with transiton that match any index.
+     * @param indices Unique indices to remove.
+     */
     public remove(indices: number[]) {
-        // TODO
+        const nodes = this.container.selectChildren().nodes() as HTMLElement[];
+
+        const remove = indices.map((index) => nodes[index]);
+        // Set animation.
+        for (const node of remove) {
+            node.addEventListener("transitionend", function () {
+                this.classList.remove("removeable");
+                node.remove();
+            });
+            node.style.width = node.offsetWidth + "px";
+            node.classList.add("removeable");
+        }
+
+        // Start animation.
+        setTimeout(
+            () =>
+                remove.forEach((node) => {
+                    node.style.width = "0";
+                    node.style.margin = "0";
+                }),
+            0
+        );
+    }
+
+    /**
+     * Removes elements with transiton that does not match any index.
+     * @param indices Unique indices to keep.
+     */
+    public keep(indices: number[]) {
+        this.remove(this.reverseNodesIndexSet(indices));
+    }
+
+    private reverseNodesIndexSet(indices: number[]): number[] {
+        const n = this.container.selectChildren().nodes().length;
+        const used = new Array(n).fill(false);
+        indices.filter((index) => index >= 0 && index < n).forEach((index) => (used[index] = true));
+
+        const result = [];
+        for (let i = 0; i < used.length; ++i) {
+            if (!used[i]) {
+                result.push(i);
+            }
+        }
+        return result;
     }
 }
