@@ -8,10 +8,13 @@ export default class SortPairsBySecondElementTransition extends TransitionBase {
     public pairArrayView: PairArrayView;
     public readonly pairs: Pair<character>[];
 
-    // Previous: SplitIntoPairsTransition
+    private prevprev: SplitIntoPairsTransition;
+
+    // Previous: ClonePairArrayTransition
     _introduce() {
-        const prev = this.previous as SplitIntoPairsTransition;
-        this.pairArrayView = prev.pairArrayView;
+        // Double previuos to skip transition.
+        this.prevprev = this.previous.previous as SplitIntoPairsTransition;
+        this.pairArrayView = this.prevprev.pairArrayView;
 
         // Highlight with red font color.
         this.pairArrayView.highlightSecondElement();
@@ -26,10 +29,9 @@ export default class SortPairsBySecondElementTransition extends TransitionBase {
     }
 
     _revoke() {
-        const prev = this.previous as SplitIntoPairsTransition;
 
         this.pairArrayView.hideSecondElement();
-        prev.updateView();
+        this.prevprev.updateView();
 
         this.pairArrayView = null;
     }

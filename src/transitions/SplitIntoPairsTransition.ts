@@ -34,7 +34,6 @@ export default class SplitIntoPairsTransition extends TransitionBase {
 
     constructor(pairs: Pair<character>[]) {
         super();
-
         this.pairs = [...pairs];
     }
 }

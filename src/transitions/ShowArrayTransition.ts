@@ -11,7 +11,7 @@ export default class ShowArrayTransition extends TransitionBase {
     // Previous: RootTransition
     _introduce() {
         this.pairArrayView = new PairArrayView();
-        d3.select(".board .layout-centered").append(() => this.pairArrayView.container.node());
+        d3.select(".board .layout-vertical-stack").append(() => this.pairArrayView.container.node());
 
 		this.pairArrayView.showAsArray();
         this.pairArrayView.setPairs(this.pairs);

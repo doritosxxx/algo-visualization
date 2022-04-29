@@ -6,6 +6,7 @@ import {
     SortPairsBySecondElementTransition,
     SplitIntoPairsTransition,
 } from "../../../transitions";
+import ClonePairArrayTransition from "../../../transitions/ClonePairArrayTransition";
 import HighlightRepeatingPairsTransition from "../../../transitions/HighlightRepeatingPairsTransition";
 import { Leaf, Root } from "../../class";
 import { character } from "../../types";
@@ -30,6 +31,7 @@ function suffixTree<T extends character>(word: T[]): Root<T> {
     }
 
     addTransition(new SplitIntoPairsTransition(pairs));
+    addTransition(new ClonePairArrayTransition(pairs));
 
     pairs = stableSort(pairs, (pair) => pair.second);
     addTransition(new SortPairsBySecondElementTransition(pairs));
