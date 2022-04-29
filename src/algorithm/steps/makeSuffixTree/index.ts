@@ -6,6 +6,7 @@ import {
     SortPairsBySecondElementTransition,
     SplitIntoPairsTransition,
 } from "../../../transitions";
+import HighlightRepeatingPairsTransition from "../../../transitions/HighlightRepeatingPairsTransition";
 import { Leaf, Root } from "../../class";
 import { character } from "../../types";
 import reindex from "./reindex";
@@ -37,6 +38,7 @@ function suffixTree<T extends character>(word: T[]): Root<T> {
     addTransition(new SortPairsByFirstElementTransition(pairs));
 
     const _unique = unique(pairs);
+    addTransition(new HighlightRepeatingPairsTransition(pairs, _unique));
     addTransition(new RemoveRepeatingPairsTransition(_unique));
 
     const compressed = reindex(pairs, _unique);

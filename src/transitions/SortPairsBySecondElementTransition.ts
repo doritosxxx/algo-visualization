@@ -25,7 +25,6 @@ export default class SortPairsBySecondElementTransition extends TransitionBase {
         this.pairArrayView.setPairs(this.pairs);
     }
 
-	// TODO
     _revoke() {
         const prev = this.previous as SplitIntoPairsTransition;
 
