@@ -1,11 +1,12 @@
 import { makeSuffixTree } from "./algorithm/steps/makeSuffixTree";
 import RootTransition from "./transitions/RootTransition";
 import TransitionBase from "./transitions/TransitionBase";
+import * as state from "./state";
 
 let isVisualizing = false;
 
 // Frame interval in milliseconds.
-let frameInterval = 500;
+let frameLength = 400;
 let interval = null;
 
 let transitions = 0;
@@ -14,6 +15,7 @@ let transitionTail: TransitionBase = new RootTransition();
 let transitionHead = transitionTail;
 
 export function restart(string: string) {
+	state.reset();
     makeSuffixTree(string);
 }
 
