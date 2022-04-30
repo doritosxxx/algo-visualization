@@ -3,37 +3,30 @@ import { character } from "../algorithm/types";
 import { flatPairArray } from "../helpers";
 import PairArrayView from "../objects/PairArrayView";
 import { TransitionBase, SplitIntoPairsTransition } from ".";
+import * as state from "../state";
 
 export default class SortPairsBySecondElementTransition extends TransitionBase {
-    public pairArrayView: PairArrayView;
     public readonly pairs: Pair<character>[];
-
-    private prevprev: SplitIntoPairsTransition;
 
     // Previous: ClonePairArrayTransition
     _introduce() {
-        // Double previuos to skip transition.
-        this.prevprev = this.previous.previous as SplitIntoPairsTransition;
-        this.pairArrayView = this.prevprev.pairArrayView;
-
         // Highlight with red font color.
-        this.pairArrayView.highlightSecondElement();
+        state.get().pairArrayView.highlightSecondElement();
         this.updateView();
     }
 
     updateView() {
-        const prev = this.pairArrayView.getPairs();
+        const pairArrayView = state.get().pairArrayView;
+        const prev = pairArrayView.getPairs();
         const order = this.pairs.map((pair) => prev.indexOf(pair));
-        this.pairArrayView.reorder(order);
-        this.pairArrayView.setPairs(this.pairs);
+        pairArrayView.reorder(order);
+        pairArrayView.setPairs(this.pairs);
     }
 
     _revoke() {
+        state.get().pairArrayView.hideSecondElement();
 
-        this.pairArrayView.hideSecondElement();
-        this.prevprev.updateView();
-
-        this.pairArrayView = null;
+        (this.previous.previous as SplitIntoPairsTransition).updateView();
     }
 
     constructor(sortedPairs: Pair<character>[]) {

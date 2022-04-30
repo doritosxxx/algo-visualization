@@ -3,23 +3,24 @@ import { character } from "../algorithm/types";
 import PairArrayView from "../objects/PairArrayView";
 import { TransitionBase } from ".";
 import { Pair } from "../algorithm/class";
+import * as state from "../state";
 
 export default class ShowArrayTransition extends TransitionBase {
-    public pairArrayView: PairArrayView;
     public readonly pairs: Pair<character>[];
 
     // Previous: RootTransition
     _introduce() {
-        this.pairArrayView = new PairArrayView();
-        d3.select(".board .layout-vertical-stack").append(() => this.pairArrayView.container.node());
+        const pairArrayView = new PairArrayView();
+        state.get().pairArrayView = pairArrayView;
+        d3.select(".board .layout-vertical-stack").append(() => pairArrayView.container.node());
 
-		this.pairArrayView.showAsArray();
-        this.pairArrayView.setPairs(this.pairs);
+        pairArrayView.showAsArray();
+        pairArrayView.setPairs(this.pairs);
     }
 
     _revoke() {
-        this.pairArrayView.container.remove();
-        this.pairArrayView = null;
+        state.get().pairArrayView.container.remove();
+        state.get().pairArrayView = null;
     }
 
     public constructor(pairs: Pair<character>[]) {

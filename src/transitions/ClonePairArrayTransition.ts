@@ -3,17 +3,18 @@ import { Pair } from "../algorithm/class";
 import { character } from "../algorithm/types";
 import PairArrayView from "../objects/PairArrayView";
 import TransitionBase from "./TransitionBase";
+import * as state from "../state";
 
 export default class ClonePairArrayTransition extends TransitionBase {
-    public clonedPairArrayView: PairArrayView;
     public readonly pairs: Pair<character>[];
 
     // Previous: SplitIntoPairsTransition
     _introduce() {
-        this.clonedPairArrayView = new PairArrayView();
-        this.clonedPairArrayView.setPairs(this.pairs);
+        const arrayView = new PairArrayView();
+        state.get().pairArrayViewClone = arrayView;
+        arrayView.setPairs(this.pairs);
 
-        const container = this.clonedPairArrayView.container
+        const container = arrayView.container
             .style("position", "relative")
             .style("left", "0")
             .style("top", "-1em")
@@ -26,8 +27,7 @@ export default class ClonePairArrayTransition extends TransitionBase {
     }
 
     _revoke() {
-        this.clonedPairArrayView.container.remove();
-        this.clonedPairArrayView = null;
+        state.get().pairArrayViewClone.container.remove();
     }
 
     constructor(pairs: Pair<character>[]) {

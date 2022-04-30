@@ -3,22 +3,18 @@ import { character } from "../algorithm/types";
 import PairArrayView from "../objects/PairArrayView";
 import SortPairsByFirstElementTransition from "./SortPairsByFirstElementTransition";
 import TransitionBase from "./TransitionBase";
+import * as state from "../state";
 
 export default class HighlightRepeatingPairsTransition extends TransitionBase {
     public indices: number[];
     public pairs: Pair<character>[];
-    public pairArrayView: PairArrayView;
 
     _introduce() {
-        const prev = this.previous as SortPairsByFirstElementTransition;
-        this.pairArrayView = prev.pairArrayView;
-
-        this.pairArrayView.highlightPairsWithBorder(this.indices);
+        state.get().pairArrayView.highlightPairsWithBorder(this.indices);
     }
 
     _revoke() {
-        this.pairArrayView.hideBorder();
-        this.pairArrayView = null;
+        state.get().pairArrayView.hideBorder();
     }
 
     constructor(pairs: Pair<character>[], unique: Pair<character>[]) {
