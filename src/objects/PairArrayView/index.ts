@@ -205,21 +205,27 @@ export default class PairArrayView {
     }
 
     public drawLines(offsets: number[]) {
+        function getColor(index) {
+            const colors = ["#FFA9E7", "#7F2CCB", "#058ED9", "#2A2D43", "#FCE762", "#7FD1B9", "#EF2917", "#337357"];
+			return colors[index % colors.length];
+        }
+
         this.container
             .selectAll(".pair-box")
             .data(offsets)
             .append("svg")
-            .each(function (datum) {
+            .each(function (index, i) {
+				const offset = index - i;
                 const parent = this.parentNode as HTMLElement;
                 const styles = window.getComputedStyle(parent);
                 const width = parseInt(styles.width) + parseInt(styles.marginLeft) + parseInt(styles.marginRight);
 
-                this.setAttribute("width", width * 2 * Math.abs(datum) + 2 + "");
+                this.setAttribute("width", width * 2 * Math.abs(offset) + 2 + "");
                 this.setAttribute("height", "4em");
 
                 const line = `<line x1="50%" y1="100%" x2="${
-                    datum == 0 ? 50 : datum < 0 ? 0 : 100
-                }%" y2="0%" stroke="black" stroke-width="2"/>`;
+                    offset == 0 ? 50 : offset < 0 ? 0 : 100
+                }%" y2="0%" stroke="${getColor(index)}" stroke-width="2"/>`;
 
                 this.innerHTML = line;
             });

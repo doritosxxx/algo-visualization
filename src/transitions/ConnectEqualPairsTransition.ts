@@ -12,7 +12,7 @@ export default class ConnectEqualPairsTransition extends TransitionBase {
     updateView() {
         const pairArrayBottom = state.get().pairArrayViewClone;
         pairArrayBottom.setIndices(this.bottomIndices);
-        pairArrayBottom.drawLines(this.bottomIndices.map((bottom, index) => bottom - index));
+        pairArrayBottom.drawLines(this.bottomIndices);
     }
 
     _revoke() {
