@@ -4,14 +4,12 @@ import * as state from "../state";
 
 export default class PushArrayToStackTransition extends TransitionBase {
     private pushedPairArrayView: PairArrayView;
-    private nextSibling: Element;
     private parentElement: Element;
 
     _introduce() {
         this.pushedPairArrayView = state.get().pairArrayView;
         state.get().pairArrayView = null;
 
-        this.nextSibling = this.pushedPairArrayView.container.node().nextElementSibling;
         this.parentElement = this.pushedPairArrayView.container.node().parentElement;
         state.get().stack.push(this.pushedPairArrayView);
     }
@@ -20,13 +18,25 @@ export default class PushArrayToStackTransition extends TransitionBase {
         state.get().stack.pop();
         state.get().pairArrayView = this.pushedPairArrayView;
 
-		console.log(this.parentElement, this.nextSibling)
-        if (this.nextSibling == null) {
-            this.parentElement.appendChild(this.pushedPairArrayView.container.node());
-        } else {
-            this.parentElement.insertBefore(this.pushedPairArrayView.container.node(), this.nextSibling);
-        }
+        this.parentElement.insertBefore(this.pushedPairArrayView.container.node(), this.parentElement.firstChild);
 
         this.pushedPairArrayView = null;
+    }
+
+    private removedPairArrayView: PairArrayView;
+    private removedPairArrayViewParent: Element;
+
+    _leave(): void {
+        this.removedPairArrayView = state.get().pairArrayViewClone;
+        state.get().pairArrayViewClone = null;
+        this.removedPairArrayViewParent = this.removedPairArrayView.container.node().parentElement;
+        this.removedPairArrayView.container.remove();
+    }
+
+    _rollback(): void {
+        state.get().pairArrayViewClone = this.removedPairArrayView;
+        this.removedPairArrayViewParent.appendChild(this.removedPairArrayView.container.node());
+        this.removedPairArrayViewParent = null;
+        this.removedPairArrayView = null;
     }
 }
