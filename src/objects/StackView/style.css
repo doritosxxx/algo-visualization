@@ -1,0 +1,10 @@
+.stack {
+    position: relative;
+}
+
+.moveable-array {
+    position: absolute;
+    top: 0;
+    left: 0;
+	transition: top var(--frame-length), left var(--frame-length);
+}

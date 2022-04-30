@@ -12,6 +12,7 @@ import {
 } from "../../../transitions";
 import ClonePairArrayTransition from "../../../transitions/ClonePairArrayTransition";
 import HighlightRepeatingPairsTransition from "../../../transitions/HighlightRepeatingPairsTransition";
+import PushArrayToStackTransition from "../../../transitions/PushArrayToStackTransition";
 import { Leaf, Root } from "../../class";
 import { character } from "../../types";
 import reindex from "./reindex";
@@ -55,6 +56,7 @@ function suffixTree<T extends character>(word: T[]): Root<T> {
             compressed
         )
     );
+	addTransition(new PushArrayToStackTransition());
 
     const tree = suffixTree(compressed);
     // TODO: transition
