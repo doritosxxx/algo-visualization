@@ -12,6 +12,16 @@ export default abstract class TransitionBase {
     abstract _introduce();
     abstract _revoke();
 
+	/**
+	 * Cleanup function before next transition being introduced. 
+	 */
+	_leave(){};
+	/**
+	 * Rollback function after next transition being revoked. 
+	 * Used to return changes made by _leave method. 
+	 */
+	_rollback(){};
+
     introduceNext(): TransitionBase {
         if (this.next == null) {
             throw new Error("Next transition does not exist");
@@ -24,6 +34,7 @@ export default abstract class TransitionBase {
 		// Debug.
         console.warn("Introduced: " + this.constructor.name);
         this.introduced = true;
+		this.previous?._leave();
         this._introduce();
     }
 
@@ -35,6 +46,7 @@ export default abstract class TransitionBase {
             throw new Error("Can't revoke to null state");
         }
         this._revoke();
+		this.previous._rollback();
         this.introduced = false;
     }
 }

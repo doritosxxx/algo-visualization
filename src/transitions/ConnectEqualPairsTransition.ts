@@ -10,14 +10,21 @@ export default class ConnectEqualPairsTransition extends TransitionBase {
     }
 
     updateView() {
-        const pairArrayBottom = state.get().pairArrayViewClone;
-        pairArrayBottom.setIndices(this.bottomIndices);
-        pairArrayBottom.drawLines(this.bottomIndices);
+        state.get().pairArrayViewClone.setIndices(this.bottomIndices);
+        state.get().pairArrayViewClone.drawLines(this.bottomIndices);
     }
 
     _revoke() {
-		state.get().pairArrayViewClone.setIndices([])
-		state.get().pairArrayViewClone.removeLines();
+        state.get().pairArrayViewClone.setIndices([]);
+        state.get().pairArrayViewClone.removeLines();
+    }
+
+    _leave() {
+        state.get().pairArrayViewClone.removeLines();
+    }
+
+    _rollback() {
+		state.get().pairArrayViewClone.drawLines(this.bottomIndices);
 	}
 
     constructor(topIndices: number[], bottomIndices: number[]) {
