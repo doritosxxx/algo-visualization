@@ -14,7 +14,12 @@
 }
 
 .layout-vertical-stack {
-	display: flex;
-	flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
+.layout-relative-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+}

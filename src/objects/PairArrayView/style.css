@@ -14,6 +14,7 @@
 
     margin: 0 10px;
     transition: margin var(--frame-length);
+	position: relative;
 }
 
 .pair--values,
@@ -88,4 +89,13 @@
 .pair--index.folded {
     top: -1em;
     opacity: 0.1;
+}
+
+/* svg lines*/
+
+.pair-box svg {
+    position: absolute;
+    left: 50%;
+    bottom: 100%;
+	transform: translate(-50%);
 }

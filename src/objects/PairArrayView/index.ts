@@ -70,8 +70,10 @@ export default class PairArrayView {
             .classed("folded", true)
             .call((item) => {
                 setTimeout(function () {
-                    item.style("transition", "top var(--frame-length), opacity var(--frame-length)")
-                    .classed("folded", false);
+                    item.style("transition", "top var(--frame-length), opacity var(--frame-length)").classed(
+                        "folded",
+                        false
+                    );
                 }, 0);
             });
     }
@@ -200,5 +202,30 @@ export default class PairArrayView {
             }
         }
         return result;
+    }
+
+    public drawLines(offsets: number[]) {
+        this.container
+            .selectAll(".pair-box")
+            .data(offsets)
+            .append("svg")
+            .each(function (datum) {
+                const parent = this.parentNode as HTMLElement;
+                const styles = window.getComputedStyle(parent);
+                const width = parseInt(styles.width) + parseInt(styles.marginLeft) + parseInt(styles.marginRight);
+
+                this.setAttribute("width", width * 2 * Math.abs(datum) + 2 + "");
+                this.setAttribute("height", "4em");
+
+                const line = `<line x1="50%" y1="100%" x2="${
+                    datum == 0 ? 50 : datum < 0 ? 0 : 100
+                }%" y2="0%" stroke="black" stroke-width="2"/>`;
+
+                this.innerHTML = line;
+            });
+    }
+
+    public removeLines() {
+        this.container.selectAll(".pair-box svg").remove();
     }
 }

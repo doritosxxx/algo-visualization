@@ -1,5 +1,9 @@
 import { addTransition } from "../../../controller";
-import { AppendPairIndicesTransition, RemoveRepeatingPairsTransition } from "../../../transitions";
+import {
+    AppendPairIndicesTransition,
+    ConnectEqualPairsTransition,
+    RemoveRepeatingPairsTransition,
+} from "../../../transitions";
 import {
     ShowArrayTransition,
     SortPairsByFirstElementTransition,
@@ -33,18 +37,24 @@ function suffixTree<T extends character>(word: T[]): Root<T> {
     addTransition(new SplitIntoPairsTransition(pairs));
     addTransition(new ClonePairArrayTransition(pairs));
 
-    pairs = stableSort(pairs, (pair) => pair.second);
+    let sorted = stableSort(pairs, (pair) => pair.second);
     addTransition(new SortPairsBySecondElementTransition(pairs));
 
-    pairs = stableSort(pairs, (pair) => pair.first);
+    sorted = stableSort(sorted, (pair) => pair.first);
     addTransition(new SortPairsByFirstElementTransition(pairs));
 
-    const _unique = unique(pairs);
-    addTransition(new HighlightRepeatingPairsTransition(pairs, _unique));
+    const _unique = unique(sorted);
+    addTransition(new HighlightRepeatingPairsTransition(sorted, _unique));
     addTransition(new RemoveRepeatingPairsTransition(_unique));
     addTransition(new AppendPairIndicesTransition(_unique.map((_, i) => i)));
 
-    const compressed = reindex(pairs, _unique);
+    const compressed: number[] = reindex(pairs, _unique);
+    addTransition(
+        new ConnectEqualPairsTransition(
+            _unique.map((_, i) => i),
+            compressed
+        )
+    );
 
     const tree = suffixTree(compressed);
     // TODO: transition
