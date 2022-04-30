@@ -207,7 +207,7 @@ export default class PairArrayView {
     public drawLines(offsets: number[]) {
         function getColor(index) {
             const colors = ["#FFA9E7", "#7F2CCB", "#058ED9", "#2A2D43", "#FCE762", "#7FD1B9", "#EF2917", "#337357"];
-			return colors[index % colors.length];
+            return colors[index % colors.length];
         }
 
         this.container
@@ -215,7 +215,7 @@ export default class PairArrayView {
             .data(offsets)
             .append("svg")
             .each(function (index, i) {
-				const offset = index - i;
+                const offset = index - i;
                 const parent = this.parentNode as HTMLElement;
                 const styles = window.getComputedStyle(parent);
                 const width = parseInt(styles.width) + parseInt(styles.marginLeft) + parseInt(styles.marginRight);
