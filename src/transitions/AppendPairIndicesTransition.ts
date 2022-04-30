@@ -1,6 +1,4 @@
-import PairArrayView from "../objects/PairArrayView";
-import RemoveRepeatingPairsTransition from "./RemoveRepeatingPairsTransition";
-import TransitionBase from "./TransitionBase";
+import { RemoveRepeatingPairsTransition, TransitionBase } from "./";
 import * as state from "../state";
 
 export default class AppendPairIndicesTransition extends TransitionBase {

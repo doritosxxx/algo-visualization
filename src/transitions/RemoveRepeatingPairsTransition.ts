@@ -1,8 +1,6 @@
 import { Pair } from "../algorithm/class";
 import { character } from "../algorithm/types";
-import PairArrayView from "../objects/PairArrayView";
-import { SortPairsByFirstElementTransition, TransitionBase } from ".";
-import HighlightRepeatingPairsTransition from "./HighlightRepeatingPairsTransition";
+import { HighlightRepeatingPairsTransition, TransitionBase } from ".";
 import * as state from "../state";
 
 export default class RemoveRepeatingPairsTransition extends TransitionBase {

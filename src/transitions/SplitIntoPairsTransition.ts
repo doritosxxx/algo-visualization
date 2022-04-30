@@ -1,6 +1,5 @@
 import { Pair } from "../algorithm/class";
 import { character } from "../algorithm/types";
-import PairArrayView from "../objects/PairArrayView";
 import { ShowArrayTransition, TransitionBase } from ".";
 import * as state from "../state";
 
