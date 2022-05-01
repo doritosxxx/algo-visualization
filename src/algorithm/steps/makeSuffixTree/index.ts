@@ -39,10 +39,10 @@ function suffixTree<T extends character>(word: T[]): Root<T> {
     addTransition(new ClonePairArrayTransition(pairs));
 
     let sorted = stableSort(pairs, (pair) => pair.second);
-    addTransition(new SortPairsBySecondElementTransition(pairs));
+    addTransition(new SortPairsBySecondElementTransition(sorted));
 
     sorted = stableSort(sorted, (pair) => pair.first);
-    addTransition(new SortPairsByFirstElementTransition(pairs));
+    addTransition(new SortPairsByFirstElementTransition(sorted));
 
     const _unique = unique(sorted);
     addTransition(new HighlightRepeatingPairsTransition(sorted, _unique));
@@ -56,7 +56,7 @@ function suffixTree<T extends character>(word: T[]): Root<T> {
             compressed
         )
     );
-	addTransition(new PushArrayToStackTransition());
+    addTransition(new PushArrayToStackTransition());
 
     const tree = suffixTree(compressed);
     // TODO: transition
