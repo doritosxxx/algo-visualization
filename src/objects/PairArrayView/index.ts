@@ -55,7 +55,14 @@ export default class PairArrayView {
                 (update) => update,
                 (exit) => exit.remove()
             )
-            .text((d) => d ?? "$");
+            .text((d) => d ?? "")
+            .each(function (datum) {
+                if (datum === null) {
+                    (this as HTMLElement).classList.add("empty-element");
+                } else {
+                    (this as HTMLElement).classList.remove("empty-element");
+                }
+            });
 
         boxes
             .data(indicesString)

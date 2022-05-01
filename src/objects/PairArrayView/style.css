@@ -40,14 +40,9 @@
     content: ",";
 }
 
-/*
-.pair-array-view:not(.pairs-as-array) .pair--values > span:nth-child(1)::after {
-    content: "(";
+.pair-array-view:not(.pairs-as-array) .empty-element::after {
+	content: "$";
 }
-.pair-array-view:not(.pairs-as-array) .pair--values > span:nth-child(5)::after {
-    content: ")";
-}
-*/
 
 /* reorder */
 
