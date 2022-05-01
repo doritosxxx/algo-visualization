@@ -4,6 +4,7 @@ import PairArrayView from "../objects/PairArrayView";
 import { TransitionBase } from ".";
 import { Pair } from "../algorithm/class";
 import * as state from "../state";
+import PushArrayToStackTransition from "./PushArrayToStackTransition";
 
 export default class ShowArrayTransition extends TransitionBase {
     public readonly pairs: Pair<character>[];
@@ -12,9 +13,15 @@ export default class ShowArrayTransition extends TransitionBase {
     _introduce() {
         const pairArrayView = new PairArrayView();
         state.get().pairArrayView = pairArrayView;
+        if (this.previous instanceof PushArrayToStackTransition) {
+            pairArrayView.showAsPairArray();
+        } else {
+            pairArrayView.showAsArray();
+        }
         d3.select(".board .layout-vertical-stack").append(() => pairArrayView.container.node());
 
-        pairArrayView.showAsArray();
+        // Triggers transition if needed.
+        setTimeout(() => pairArrayView.showAsArray(), 0);
         pairArrayView.setPairs(this.pairs);
     }
 
@@ -23,13 +30,13 @@ export default class ShowArrayTransition extends TransitionBase {
         state.get().pairArrayView = null;
     }
 
-	_leave(): void {
-		state.get().pairArrayView.showAsPairArray();
-	}
+    _leave(): void {
+        state.get().pairArrayView.showAsPairArray();
+    }
 
-	_rollback(): void {
-		state.get().pairArrayView.showAsArray();
-	}
+    _rollback(): void {
+        state.get().pairArrayView.showAsArray();
+    }
 
     public constructor(pairs: Pair<character>[]) {
         super();
