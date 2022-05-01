@@ -16,14 +16,12 @@ export default class SplitIntoPairsTransition extends TransitionBase {
 
     updateView() {
         state.get().pairArrayView.setPairs(this.pairs);
-        state.get().pairArrayView.showAsPairArray();
     }
 
     _revoke() {
         const prev = this.previous as ShowArrayTransition;
 
         state.get().pairArrayView.setPairs(prev.pairs);
-        state.get().pairArrayView.showAsArray();
     }
 
     constructor(pairs: Pair<character>[]) {

@@ -25,6 +25,11 @@ export default class RemoveRepeatingPairsTransition extends TransitionBase {
         state.get().pairArrayView.highlightPairsWithBorder(prev.indices);
     }
 
+	_leave(): void {
+		// Ensure that all temporary elements are removed even if animation hasn't been ended yet. 
+		state.get().pairArrayView.container.selectAll(".removeable").remove();
+	}
+
     constructor(unique: Pair<character>[]) {
         super();
         this.pairs = [...unique];

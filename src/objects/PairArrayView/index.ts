@@ -164,7 +164,6 @@ export default class PairArrayView {
         // Set animation.
         for (const node of remove) {
             node.addEventListener("transitionend", function () {
-                this.classList.remove("removeable");
                 node.remove();
             });
             node.style.width = node.offsetWidth + "px";

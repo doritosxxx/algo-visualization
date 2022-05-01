@@ -23,6 +23,14 @@ export default class ShowArrayTransition extends TransitionBase {
         state.get().pairArrayView = null;
     }
 
+	_leave(): void {
+		state.get().pairArrayView.showAsPairArray();
+	}
+
+	_rollback(): void {
+		state.get().pairArrayView.showAsArray();
+	}
+
     public constructor(pairs: Pair<character>[]) {
         super();
         this.pairs = [...pairs];
