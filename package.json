@@ -10,7 +10,7 @@
 		"build": "webpack",
 		"serve": "webpack serve",
 		"surge": "surge ./build farach.surge.sh",
-		"deploy": " npm run build && npm run surge"
+		"deploy": "npm run build && npm run surge"
 	},
 	"keywords": [
 		"algorithm",

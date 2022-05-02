@@ -9,7 +9,6 @@ interface IState {
 
 let state: IState = null;
 const stack = new StackView();
-console.log(stack)
 
 export function reset() {
     state = {
