@@ -1,0 +1,11 @@
+.node {
+	fill: gray;
+}
+
+.node.odd {
+	fill: red;
+}
+
+.node.even {
+	fill: blue;
+}
