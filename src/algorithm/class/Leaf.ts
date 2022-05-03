@@ -10,6 +10,10 @@ export default class Leaf<T extends character> extends Edge<T> {
     }
 
     clone(): Leaf<T> {
+        return this.cloneShallow();
+    }
+
+    cloneShallow(): Leaf<T> {
         const clone = new Leaf<T>([...this.label], this.suffixIndex);
         clone.id = this.id;
         clone.type = this.type;

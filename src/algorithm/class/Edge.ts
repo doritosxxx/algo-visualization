@@ -1,4 +1,5 @@
 import ICloneable from "../interface/ICloneable";
+import IShallowCloneable from "../interface/IShallowCloneable";
 import { character, word } from "../types";
 
 let edge_id = 0;
@@ -10,7 +11,7 @@ function getEdgeId() {
 // Ребро сжатого суффиксного дерева.
 // Содержит массив исходящих ребер.
 // Ребра упорядочены по первому символу.
-export default class Edge<T extends character> implements ICloneable<Edge<T>> {
+export default class Edge<T extends character> implements ICloneable<Edge<T>>, IShallowCloneable<Edge<T>> {
     public children: Edge<T>[] = [];
     public label: T[];
     public type: "odd" | "even" | null = null;
@@ -23,10 +24,15 @@ export default class Edge<T extends character> implements ICloneable<Edge<T>> {
     }
 
     clone(): Edge<T> {
+        const clone = this.cloneShallow();
+        clone.children = this.children.map((child) => child.clone());
+        return clone;
+    }
+
+    cloneShallow(): Edge<T> {
         const clone = new Edge<T>([...this.label]);
         clone.id = this.id;
         clone.type = this.type;
-        clone.children = this.children.map((child) => child.clone());
         return clone;
     }
 
