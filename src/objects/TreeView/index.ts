@@ -57,7 +57,6 @@ export default class TreeView {
             })
             .join(
                 (enter) => {
-                    console.log("enter", enter);
                     const groups = enter.append("g");
                     // Links.
                     groups.append("path");
