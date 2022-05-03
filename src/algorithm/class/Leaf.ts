@@ -8,4 +8,11 @@ export default class Leaf<T extends character> extends Edge<T> {
         super(label);
         this.suffixIndex = suffixIndex;
     }
+
+    clone(): Leaf<T> {
+        const clone = new Leaf<T>([...this.label], this.suffixIndex);
+        clone.id = this.id;
+        clone.type = this.type;
+        return clone;
+    }
 }
