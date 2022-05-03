@@ -1,4 +1,5 @@
 import * as d3 from "d3";
+import { HierarchyPointLink, HierarchyPointNode } from "d3";
 import { Edge, Leaf, Root } from "../../algorithm/class";
 import { character } from "../../algorithm/types";
 import "./style.css";
@@ -37,9 +38,13 @@ export default class TreeView {
         const linksContainer = this.container
             .select(".links")
             .selectChildren("g")
-            .data(layout.links())
+            .data(layout.links(), (d, i) => {
+                const datum = d as HierarchyPointLink<Edge<character>>;
+                return datum.target.data.id;
+            })
             .join(
                 (enter) => {
+                    console.log("enter", enter);
                     const groups = enter.append("g");
                     // Links.
                     groups.append("path");
@@ -47,12 +52,15 @@ export default class TreeView {
                     const labels = groups.append("g").classed("link-label", true);
                     labels.append("rect").attr("fill", "white");
                     labels.append("text").attr("fill", "black");
-                    return groups;
+                    return groups.style("opacity", "0").transition().duration(400).style("opacity", "1");
                 },
-                (update) => update,
-                (exit) => exit.remove()
+                (update) => {
+                    return update;
+                },
+                (exit) => exit.style("opacity", "1").transition().duration(400).style("opacity", "0").remove()
             );
 
+        // TODO: aniimate links
         // Links.
         linksContainer.selectChild("path").attr("d", (d) => {
             return d3.linkVertical()({
@@ -88,26 +96,37 @@ export default class TreeView {
         const nodesContainer = this.container
             .select(".nodes")
             .selectChildren("g")
-            .data(layout.descendants())
+            .data(layout.descendants(), function (d) {
+                const datum = d as HierarchyPointNode<Edge<character>>;
+                return datum.data.id;
+            })
             .join(
                 (enter) => {
                     const groups = enter.append("g");
 
                     // Cricles.
-                    groups.append("circle").classed("node", true).attr("r", config.node_radius);
+                    groups
+                        .append("circle")
+                        .classed("node", true)
+                        .attr("r", config.node_radius)
+                        .attr("cx", (d) => d.x)
+                        .attr("cy", (d) => d.y);
 
                     // Leaf Labels.
                     groups.append("text").classed("leaf-label", true).attr("fill", "black");
-                    return groups;
+                    return groups.style("opacity", "0").transition().duration(400).style("opacity", "1");
                 },
-                (update) => update,
-                (exit) => exit.remove()
+                (update) => {
+                    update
+                        .selectChild("circle")
+                        .transition()
+                        .duration(400)
+                        .attr("cx", (d) => d.x)
+                        .attr("cy", (d) => d.y);
+                    return update;
+                },
+                (exit) => exit.style("opacity", "1").transition().duration(400).style("opacity", "0").remove()
             );
-
-        nodesContainer
-            .selectChild("circle")
-            .attr("cx", (d) => d.x)
-            .attr("cy", (d) => d.y);
 
         nodesContainer
             .selectChild("text")

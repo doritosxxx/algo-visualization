@@ -1,5 +1,11 @@
 import { character, word } from "../types";
 
+let edge_id = 0;
+
+function getEdgeId(){
+	return edge_id++;
+}
+
 // Ребро сжатого суффиксного дерева.
 // Содержит массив исходящих ребер.
 // Ребра упорядочены по первому символу.
@@ -8,8 +14,11 @@ export default class Edge<T extends character> {
     public label: T[];
     public type: "odd" | "even" | null = null;
 
+	public id : number;
+
     public constructor(label: T[]) {
-        this.label = label;
+        this.id = getEdgeId();
+		this.label = label;
     }
 
 	/*
