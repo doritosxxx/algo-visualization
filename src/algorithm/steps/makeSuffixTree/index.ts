@@ -64,7 +64,7 @@ function suffixTree<T extends character>(word: T[]): Root<T> {
     const tree = suffixTree(compressed);
 
 	// Step 2.
-    const evenTree = makeEvenTree(tree);
+    const evenTree = makeEvenTree(tree, _unique);
 
     throw new Error("stop it");
 }
