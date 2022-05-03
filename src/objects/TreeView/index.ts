@@ -44,6 +44,8 @@ export default class TreeView {
     }
 
     public setData(tree: Root<character>) {
+        this.tree = tree;
+
         const layout = d3.tree<Edge<character>>().size([this.width, this.height - config.node_radius * 5])(
             d3.hierarchy(tree, (node) => node.children)
         );
