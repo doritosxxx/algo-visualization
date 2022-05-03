@@ -71,4 +71,16 @@ export default class StackView {
     public pop(): PairArrayView {
         return this.stack.pop();
     }
+
+    public ejectTop() {
+        const top = this.stack[this.stack.length - 1];
+        top.container.classed("before-eject", true);
+        setTimeout(() => top.container.classed("eject", true), 0);
+    }
+
+    public shoveTop() {
+        const top = this.stack[this.stack.length - 1];
+        top.container.classed("eject", false);
+        setTimeout(() => top.container.classed("before-eject", false), 0);
+    }
 }

@@ -2,9 +2,21 @@
     position: relative;
 }
 
+.stack > * {
+    width: fit-content;
+}
+
 .moveable-array {
     position: absolute;
     top: 0;
     left: 0;
-	transition: top var(--frame-length), left var(--frame-length);
+    transition: top var(--frame-length), left var(--frame-length);
+}
+
+.before-eject {
+    transition: transform var(--frame-length);
+}
+
+.eject {
+    transform: translate(calc(-100% + -50px));
 }

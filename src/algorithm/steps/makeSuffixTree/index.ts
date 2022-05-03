@@ -16,6 +16,7 @@ import PushArrayToStackTransition from "../../../transitions/PushArrayToStackTra
 import ShowTrivialTreeTransition from "../../../transitions/ShowTrivialTreeTransition";
 import { Leaf, Root } from "../../class";
 import { character } from "../../types";
+import makeEvenTree from "../makeEvenTree";
 import reindex from "./reindex";
 import splitIntoPairs from "./splitIntoPairs";
 import stableSort from "./stableSort";
@@ -33,7 +34,7 @@ function suffixTree<T extends character>(word: T[]): Root<T> {
     if (word.length <= 1) {
         const root = new Root<T>();
         root.children.push(new Leaf(word, 0));
-		addTransition(new ShowTrivialTreeTransition(root));
+        addTransition(new ShowTrivialTreeTransition(root));
         return root;
     }
 
@@ -61,6 +62,9 @@ function suffixTree<T extends character>(word: T[]): Root<T> {
     addTransition(new PushArrayToStackTransition());
 
     const tree = suffixTree(compressed);
-    
+
+	// Step 2.
+    const evenTree = makeEvenTree(tree);
+
     throw new Error("stop it");
 }
