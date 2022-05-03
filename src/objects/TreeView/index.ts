@@ -11,6 +11,9 @@ const config = {
 };
 
 export default class TreeView {
+    private width: number = config.svg_width;
+    private height: number = config.svg_height;
+
     public container: d3.Selection<SVGSVGElement, undefined, null, undefined>;
     public tree: Root<character>;
 
@@ -18,9 +21,9 @@ export default class TreeView {
         this.container = d3
             .create("svg")
             .classed("tree-view", true)
-            .attr("width", config.svg_width)
-            .attr("height", config.svg_height)
-            .attr("viewBox", `0 0 ${config.svg_width} ${config.svg_height}`)
+            .attr("width", this.width)
+            .attr("height", this.height)
+            .attr("viewBox", `0 0 ${this.width} ${this.height}`)
             .attr("fill", "none")
             .attr("stroke", "black");
 
@@ -30,8 +33,18 @@ export default class TreeView {
         padding.append("g").classed("nodes", true);
     }
 
+    public setSize(width: number, height: number) {
+        this.width = width;
+        this.height = height;
+
+        this.container
+            .attr("width", this.width)
+            .attr("height", this.height)
+            .attr("viewBox", `0 0 ${this.width} ${this.height}`);
+    }
+
     public setData(tree: Root<character>) {
-        const layout = d3.tree<Edge<character>>().size([config.svg_width, config.svg_height - config.node_radius * 5])(
+        const layout = d3.tree<Edge<character>>().size([this.width, this.height - config.node_radius * 5])(
             d3.hierarchy(tree, (node) => node.children)
         );
 
