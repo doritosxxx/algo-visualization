@@ -13,6 +13,7 @@ import {
 import ClonePairArrayTransition from "../../../transitions/ClonePairArrayTransition";
 import HighlightRepeatingPairsTransition from "../../../transitions/HighlightRepeatingPairsTransition";
 import PushArrayToStackTransition from "../../../transitions/PushArrayToStackTransition";
+import ShowTrivialTreeTransition from "../../../transitions/ShowTrivialTreeTransition";
 import { Leaf, Root } from "../../class";
 import { character } from "../../types";
 import reindex from "./reindex";
@@ -29,9 +30,10 @@ function suffixTree<T extends character>(word: T[]): Root<T> {
     addTransition(new ShowArrayTransition(pairs));
 
     // Тривиальный случай.
-    if (word.length == 1) {
+    if (word.length <= 1) {
         const root = new Root<T>();
         root.children.push(new Leaf(word, 0));
+		addTransition(new ShowTrivialTreeTransition(root));
         return root;
     }
 
@@ -59,5 +61,6 @@ function suffixTree<T extends character>(word: T[]): Root<T> {
     addTransition(new PushArrayToStackTransition());
 
     const tree = suffixTree(compressed);
-    // TODO: transition
+    
+    throw new Error("stop it");
 }
