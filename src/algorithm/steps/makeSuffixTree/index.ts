@@ -31,7 +31,7 @@ function suffixTree<T extends character>(word: T[]): Root<T> {
     // Тривиальный случай.
     if (word.length == 1) {
         const root = new Root<T>();
-        root.edges.push(new Leaf(word, 0));
+        root.children.push(new Leaf(word, 0));
         return root;
     }
 

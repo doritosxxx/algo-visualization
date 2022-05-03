@@ -6,7 +6,7 @@ import { character, word } from "../types";
 export default class Edge<T extends character> {
     public children: Edge<T>[] = [];
     public label: T[];
-    public readonly type: "odd" | "even" | null = null;
+    public type: "odd" | "even" | null = null;
 
     public constructor(label: T[]) {
         this.label = label;
