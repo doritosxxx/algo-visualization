@@ -48,7 +48,7 @@ function main() {
 
     window.addEventListener("animationRestarting", function () {
         playButton.classList.add("bring-attention");
-        //setTimeout(() => playButton.classList.remove("bring-attention"), 2000);
+        setTimeout(() => playButton.classList.remove("bring-attention"), 3500);
     });
 }
 

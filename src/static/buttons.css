@@ -3,14 +3,37 @@
     border-radius: 3px;
     border: 1px solid darkgray;
     color: #fff;
-    padding: 5% 10%;
     font: 700 15px sans-serif;
     box-sizing: border-box;
     cursor: pointer;
 }
 
+#controls__buttons .button-styled {
+    padding: 1em 1em;
+}
+
+.change_frame_button {
+    width: 2em;
+    height: 2em;
+    box-sizing: border-box;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 /* play/pause button */
 
+@keyframes attention {
+    from {
+        box-shadow: 0 0 5px 0px red inset;
+    }
+    to {
+        box-shadow: 0 0 5px 4px red inset;
+    }
+}
+
 .bring-attention {
+    animation: attention 0.5s infinite ease alternate-reverse;
     box-shadow: 0 0 5px 2px red inset;
 }

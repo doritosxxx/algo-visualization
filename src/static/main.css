@@ -65,17 +65,6 @@ content {
     width: 100%;
 }
 
-.change_frame_button {
-    width: 30px;
-    height: 30px;
-    padding: 0 !important;
-    box-sizing: border-box;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 #controls__buttons {
     display: flex;
     justify-content: space-between;
