@@ -4,6 +4,7 @@ import { TransitionBase, SplitIntoPairsTransition } from ".";
 import * as state from "../state";
 
 export default class SortPairsBySecondElementTransition extends TransitionBase {
+	description: string = "Сортируем пары по второму элементу стабильной сортировкой";
     public readonly pairs: Pair<character>[];
 
     // Previous: ClonePairArrayTransition

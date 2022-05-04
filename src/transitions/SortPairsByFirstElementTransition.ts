@@ -4,6 +4,7 @@ import { SortPairsBySecondElementTransition, TransitionBase } from ".";
 import * as state from "../state";
 
 export default class SortPairsByFirstElementTransition extends TransitionBase {
+	description: string = "Сортируем пары по первому элементу стабильной сортировкой";
     pairs: Pair<character>[];
 
     _introduce() {

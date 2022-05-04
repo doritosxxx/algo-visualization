@@ -4,6 +4,7 @@ import TransitionBase from "./TransitionBase";
 import * as state from "../state";
 
 export default class HighlightRepeatingPairsTransition extends TransitionBase {
+	description: string = "Находим повторяющиеся пары";
     public indices: number[];
     public pairs: Pair<character>[];
 

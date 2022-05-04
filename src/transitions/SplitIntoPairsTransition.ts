@@ -4,6 +4,7 @@ import { ShowArrayTransition, TransitionBase } from ".";
 import * as state from "../state";
 
 export default class SplitIntoPairsTransition extends TransitionBase {
+	description: string = "Разбиваем строку на пары подряд идущих символов";
     public readonly pairs: Pair<character>[];
 
     // Previous: ShowArrayTransition

@@ -6,6 +6,7 @@ import TransitionBase from "./TransitionBase";
 import * as state from "../state";
 
 export default class ClonePairArrayTransition extends TransitionBase {
+	description: string = "Создаем копию массива пар для работы с ней";
     public readonly pairs: Pair<character>[];
 
     // Previous: SplitIntoPairsTransition

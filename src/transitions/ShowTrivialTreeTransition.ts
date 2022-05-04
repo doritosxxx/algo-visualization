@@ -3,10 +3,10 @@ import { character } from "../algorithm/types";
 import TreeView from "../objects/TreeView";
 import TransitionBase from "./TransitionBase";
 import * as state from "../state";
-import ArrayView from "../objects/ArrayView";
 import PairArrayView from "../objects/PairArrayView";
 
 export default class ShowTrivialTreeTransition extends TransitionBase {
+	description: string = "Для строки длиной 1 суффиксное дерево строится тривиально";
     private hiddenArrayView: PairArrayView;
     private hiddenElementParent: HTMLElement;
 
@@ -18,7 +18,7 @@ export default class ShowTrivialTreeTransition extends TransitionBase {
 
     _introduce() {
         const treeView = new TreeView();
-        state.get().treeView1 = treeView;
+        state.get().evenTreeView = treeView;
         const svg = document.querySelector("#svg") as SVGSVGElement;
         svg.appendChild(treeView.container.node());
 
@@ -30,7 +30,6 @@ export default class ShowTrivialTreeTransition extends TransitionBase {
         treeView.setSize(400, +height);
         treeView.setData(this.tree);
 
-        console.log(state.get());
         this.hiddenArrayView = state.get().pairArrayView;
         state.get().pairArrayView = null;
         this.hiddenElementParent = this.hiddenArrayView.container.node().parentElement;
@@ -38,8 +37,8 @@ export default class ShowTrivialTreeTransition extends TransitionBase {
     }
 
     _revoke() {
-        state.get().treeView1.container.remove();
-        state.get().treeView1 = null;
+        state.get().evenTreeView.container.remove();
+        state.get().evenTreeView = null;
 
         state.get().pairArrayView = this.hiddenArrayView;
         this.hiddenElementParent.appendChild(this.hiddenArrayView.container.node());

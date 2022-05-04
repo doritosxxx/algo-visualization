@@ -1,4 +1,8 @@
+import * as state from "../state";
+
 export default abstract class TransitionBase {
+    abstract description: string;
+
     public next: TransitionBase = null;
     public previous: TransitionBase = null;
 
@@ -12,15 +16,15 @@ export default abstract class TransitionBase {
     abstract _introduce();
     abstract _revoke();
 
-	/**
-	 * Cleanup function before next transition being introduced. 
-	 */
-	_leave(){};
-	/**
-	 * Rollback function after next transition being revoked. 
-	 * Used to return changes made by _leave method. 
-	 */
-	_rollback(){};
+    /**
+     * Cleanup function before next transition being introduced.
+     */
+    _leave() {}
+    /**
+     * Rollback function after next transition being revoked.
+     * Used to return changes made by _leave method.
+     */
+    _rollback() {}
 
     introduceNext(): TransitionBase {
         if (this.next == null) {
@@ -31,10 +35,11 @@ export default abstract class TransitionBase {
     }
 
     introduce() {
-		// Debug.
+        // Debug.
         console.warn("Introduced: " + this.constructor.name);
         this.introduced = true;
-		this.previous?._leave();
+        this.previous?._leave();
+        state.get().statusbar.setString(this.description);
         this._introduce();
     }
 
@@ -46,7 +51,8 @@ export default abstract class TransitionBase {
             throw new Error("Can't revoke to null state");
         }
         this._revoke();
-		this.previous._rollback();
+        this.previous._rollback();
+        state.get().statusbar.setString(this.previous.description);
         this.introduced = false;
     }
 }

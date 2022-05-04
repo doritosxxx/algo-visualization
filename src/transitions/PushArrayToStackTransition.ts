@@ -3,6 +3,7 @@ import TransitionBase from "./TransitionBase";
 import * as state from "../state";
 
 export default class PushArrayToStackTransition extends TransitionBase {
+	description: string = "Сохраняем первый массив пар в стеке. Позже он понадобится для распаковки строки";
     private pushedPairArrayView: PairArrayView;
     private parentElement: Element;
 

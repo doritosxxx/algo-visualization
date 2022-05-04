@@ -2,6 +2,7 @@ import { RemoveRepeatingPairsTransition, TransitionBase } from "./";
 import * as state from "../state";
 
 export default class AppendPairIndicesTransition extends TransitionBase {
+	description: string = "Дописываем к каждой паре ее порядковый номер";
     public readonly indices: number[];
 
     // Previous: RemoveRepeatingPairsTransition

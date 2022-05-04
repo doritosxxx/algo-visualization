@@ -15,11 +15,11 @@ export default class UpdateTreeTransition extends TransitionBase {
     }
 
     _introduce() {
-		this.previousTree = state.get().treeView1.tree;
-        state.get().treeView1.setData(this.tree);
+		this.previousTree = state.get().evenTreeView.tree;
+        state.get().evenTreeView.setData(this.tree);
     }
     _revoke() {
-        state.get().treeView1.setData(this.previousTree);
+        state.get().evenTreeView.setData(this.previousTree);
 		this.previousTree = null;
     }
 }

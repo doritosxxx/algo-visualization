@@ -2,6 +2,7 @@ import TransitionBase from "./TransitionBase";
 import * as state from "../state";
 
 export default class ConnectEqualPairsTransition extends TransitionBase {
+	description: string = "Для каждой пары во втором массиве находим ее номер из первого массива";
     public topIndices: number[];
     public bottomIndices: number[];
 

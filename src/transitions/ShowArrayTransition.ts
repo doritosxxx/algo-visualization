@@ -7,6 +7,7 @@ import * as state from "../state";
 import PushArrayToStackTransition from "./PushArrayToStackTransition";
 
 export default class ShowArrayTransition extends TransitionBase {
+    description: string = "Создаем новую строку, состоящую из номеров пар. Размер строки уменьшился в 2 раза";
     public readonly pairs: Pair<character>[];
 
     // Previous: RootTransition
@@ -17,6 +18,8 @@ export default class ShowArrayTransition extends TransitionBase {
             pairArrayView.showAsPairArray();
         } else {
             pairArrayView.showAsArray();
+            this.description = "На вход алгоритма подается строка";
+            state.get().statusbar.setString(this.description);
         }
         d3.select(".board .layout-vertical-stack").append(() => pairArrayView.container.node());
 

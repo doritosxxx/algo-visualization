@@ -4,6 +4,7 @@ import { HighlightRepeatingPairsTransition, TransitionBase } from ".";
 import * as state from "../state";
 
 export default class RemoveRepeatingPairsTransition extends TransitionBase {
+	description: string = "Удаляем найденные повторяющиеся пары";
     public readonly pairs: Pair<character>[];
     public indices: number[];
 
