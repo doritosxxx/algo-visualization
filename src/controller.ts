@@ -12,10 +12,13 @@ let interval = null;
 let transitions = 0;
 let introduced = 0;
 let transitionTail: TransitionBase = new RootTransition();
-let transitionHead = transitionTail;
+let transitionHead: TransitionBase = transitionTail;
 
 export function restart(string: string) {
-	state.reset();
+    state.reset();
+    transitions = 0;
+    introduced = 0;
+    transitionTail = transitionHead = new RootTransition();
     makeSuffixTree(string);
 }
 

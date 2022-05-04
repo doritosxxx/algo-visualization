@@ -8,4 +8,8 @@ export default class StatusbarView {
     public setString(string: string) {
         this.container.textContent = string;
     }
+
+    public clear() {
+        this.container.textContent = "";
+    }
 }

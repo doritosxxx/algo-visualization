@@ -18,6 +18,17 @@ const stack = new StackView();
 const statusbar = new StatusbarView();
 
 export function reset() {
+    if (state !== null) {
+        stack.clear();
+        statusbar.clear();
+        state.pairArrayView?.container.remove();
+        state.pairArrayViewClone?.container.remove();
+
+        state.evenTreeView?.container.remove();
+        state.oddTreeView?.container.remove();
+        state.mergedTreeView?.container.remove();
+    }
+
     state = {
         stack: stack,
         statusbar: statusbar,
@@ -29,7 +40,6 @@ export function reset() {
         oddTreeView: null,
         mergedTreeView: null,
     };
-    state.stack.clear();
 }
 
 export function get(): IState {
