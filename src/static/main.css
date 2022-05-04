@@ -1,5 +1,4 @@
 body {
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
     background-color: var(--color-button);
@@ -29,13 +28,12 @@ content {
 #frame {
     width: 100%;
     padding: 2px;
-    margin: 5px 20px;
     box-sizing: border-box;
-	overflow: hidden;
+    overflow: hidden;
 
-	font-size: 1.2rem;
+    font-size: 1.2rem;
     font-weight: 500;
-	font-family: 'Consolas', sans-serif;
+    font-family: "Consolas", sans-serif;
 }
 
 #frame > * > svg {
@@ -148,4 +146,23 @@ html[debug] .split-panel__left {
 .stack {
     display: flex;
     flex-direction: column-reverse;
+}
+
+/* statusbar */
+
+#statusbar-wrapper {
+    width: 100%;
+    margin: 5px;
+    box-sizing: border-box;
+	padding: 2px;
+}
+
+#statusbar {
+	box-sizing: border-box;
+    width: 100%;
+    background-color: white;
+	padding: 2px 5px;
+	font-weight: 500;
+
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
