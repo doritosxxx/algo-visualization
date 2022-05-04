@@ -12,7 +12,7 @@ function _unfold<T extends character>(edge: Edge<number>, pairs: Pair<T>[]): Edg
     if (edge instanceof Root) {
         unfolded = new Root<T>();
     } else if (edge instanceof Leaf) {
-        unfolded = new Leaf(letters, (edge as Leaf<T>).suffixIndex);
+        unfolded = new Leaf(edge.suffixIndex);
     } else {
         unfolded = new Edge<T>(letters);
     }
