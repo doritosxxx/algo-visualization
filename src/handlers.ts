@@ -1,4 +1,4 @@
-import { moveNext, movePrev, restart } from "./controller";
+import { moveNext, movePrev, restart, play, pause } from "./controller";
 
 document.addEventListener("DOMContentLoaded", main);
 
@@ -24,6 +24,31 @@ function main() {
         } else if (event.key == "ArrowRight") {
             moveNext();
         }
+    });
+
+    // Play/Pause button.
+    const playButton = document.querySelector("#button-pause-play");
+
+    playButton.addEventListener("click", function () {
+        const button = this as HTMLButtonElement;
+        if (button.textContent == "Play") {
+            play();
+        } else {
+            pause();
+        }
+    });
+
+    window.addEventListener("animationStarted", function () {
+        playButton.textContent = "Pause";
+    });
+
+    window.addEventListener("animationPaused", function () {
+        playButton.textContent = "Play";
+    });
+
+    window.addEventListener("animationRestarting", function () {
+        playButton.classList.add("bring-attention");
+        //setTimeout(() => playButton.classList.remove("bring-attention"), 2000);
     });
 }
 

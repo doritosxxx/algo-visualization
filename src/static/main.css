@@ -154,15 +154,16 @@ html[debug] .split-panel__left {
     width: 100%;
     margin: 5px;
     box-sizing: border-box;
-	padding: 2px;
+    padding: 2px;
 }
 
 #statusbar {
-	box-sizing: border-box;
+    min-height: 1.5em;
+    box-sizing: border-box;
     width: 100%;
     background-color: white;
-	padding: 2px 5px;
-	font-weight: 500;
+    padding: 2px 5px;
+    font-weight: 500;
 
-	font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }

@@ -3,18 +3,42 @@ import RootTransition from "./transitions/RootTransition";
 import TransitionBase from "./transitions/TransitionBase";
 import * as state from "./state";
 
-let isVisualizing = false;
+let animationEnabled = false;
 
 // Frame interval in milliseconds.
-let frameLength = 400;
-let interval = null;
+let frameLength = 1000;
+let intervalId = null;
 
 let transitions = 0;
 let introduced = 0;
 let transitionTail: TransitionBase = new RootTransition();
 let transitionHead: TransitionBase = transitionTail;
 
+export function play() {
+    if (animationEnabled) {
+        return;
+    }
+
+    intervalId = setInterval(function () {
+        moveNext();
+        if (introduced == transitions) {
+            pause();
+            return;
+        }
+    }, frameLength);
+
+    window.dispatchEvent(new CustomEvent("animationStarted"));
+}
+
+export function pause() {
+    animationEnabled = false;
+    clearInterval(intervalId);
+    window.dispatchEvent(new CustomEvent("animationPaused"));
+}
+
 export function restart(string: string) {
+    window.dispatchEvent(new CustomEvent("animationRestarting"));
+    pause();
     state.reset();
     transitions = 0;
     introduced = 0;

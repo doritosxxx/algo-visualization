@@ -6,5 +6,11 @@
     padding: 5% 10%;
     font: 700 15px sans-serif;
     box-sizing: border-box;
-	cursor: pointer;
+    cursor: pointer;
+}
+
+/* play/pause button */
+
+.bring-attention {
+    box-shadow: 0 0 5px 2px red inset;
 }
