@@ -53,7 +53,7 @@ export default class TreeView {
         const linksContainer = this.container
             .select(".links")
             .selectChildren("g")
-            .data(layout.links(), (d, i) => {
+            .data(layout.links(), (d) => {
                 const datum = d as HierarchyPointLink<Edge<character>>;
                 return datum.target.data.id;
             })
@@ -90,11 +90,16 @@ export default class TreeView {
             );
 
         // Labels.
-        const labels = linksContainer.selectChild(".link-label").attr("transform", (d) => {
-            const x = (d.source.x + d.target.x) / 2;
-            const y = (d.source.y + d.target.y) / 2;
-            return `translate(${x} ${y})`;
-        });
+        const labels = linksContainer.selectChild(".link-label");
+
+        labels
+            .transition()
+            .duration(400)
+            .attr("transform", (d) => {
+                const x = (d.source.x + d.target.x) / 2;
+                const y = (d.source.y + d.target.y) / 2;
+                return `translate(${x} ${y})`;
+            });
 
         labels
             .select("text")
@@ -124,7 +129,7 @@ export default class TreeView {
                 (enter) => {
                     const groups = enter.append("g");
 
-                    // Cricles.
+                    // Circles.
                     groups
                         .append("circle")
                         .classed("node", true)
@@ -146,10 +151,7 @@ export default class TreeView {
                     return update;
                 },
                 (exit) => exit.style("opacity", "1").transition().duration(400).style("opacity", "0").remove()
-            );
-
-        nodesContainer
-            .selectChild("text")
+            )
             .each(function (datum) {
                 const node = this as SVGTextElement;
 
@@ -158,14 +160,19 @@ export default class TreeView {
                 if (datum.data.type != null) {
                     node.classList.add(datum.data.type);
                 }
-            })
-            .attr("x", (d) => d.x)
-            .attr("y", (d) => d.y + 3 * config.node_radius)
+            });
+
+        nodesContainer
+            .selectChild("text")
             .text((d) => (d.data instanceof Leaf ? d.data.suffixIndex : ""))
             .each(function () {
                 const node = this as SVGTextElement;
                 const boundBox = node.getBBox();
                 node.setAttribute("transform", `translate(${-boundBox.width / 2} 0)`);
-            });
+            })
+            .transition()
+            .duration(400)
+            .attr("x", (d) => d.x)
+            .attr("y", (d) => d.y + 3 * config.node_radius);
     }
 }
