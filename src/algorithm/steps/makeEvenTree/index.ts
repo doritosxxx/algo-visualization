@@ -3,6 +3,7 @@ import ExtractArrayFromStackTransition from "../../../transitions/ExtractArrayFr
 import UpdateTreeTransition from "../../../transitions/UpdateTreeTransition";
 import { Pair, Root } from "../../class";
 import { character } from "../../types";
+import fixCommonBeginnings from "./fixCommonBeginnings";
 import multiplyLeafIndices from "./multiplyLeafIndices";
 import unfold from "./unfold";
 
@@ -14,5 +15,6 @@ export default function makeEvenTree<T extends character>(tree: Root<number>, pa
     addTransition(new UpdateTreeTransition(unfolded));
     multiplyLeafIndices(unfolded);
     addTransition(new UpdateTreeTransition(unfolded));
-    
+    fixCommonBeginnings(unfolded);
+    addTransition(new UpdateTreeTransition(unfolded));
 }
