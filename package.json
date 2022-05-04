@@ -7,7 +7,7 @@
 		"test": "jest",
 		"coverage": "jest --coverage",
 		"start": "ts-node src/index.ts",
-		"build": "webpack",
+		"build": "webpack --env production",
 		"serve": "webpack serve",
 		"surge": "surge ./build farach.surge.sh",
 		"deploy": "npm run build && npm run surge"

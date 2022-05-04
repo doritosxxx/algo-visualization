@@ -1,10 +1,10 @@
 var path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
-module.exports = {
+const config = {
     entry: {
-		app: "./src/index"
-	},
+        app: "./src/index",
+    },
     output: {
         path: path.resolve(__dirname, "build"),
         filename: "[name].bundle.js",
@@ -38,8 +38,18 @@ module.exports = {
         },
         compress: true,
         port: 9000,
-        watchFiles: ['src/**/*'],
-		
+        watchFiles: ["src/**/*"],
     },
-    devtool: "inline-source-map",
+};
+
+module.exports = function (env) {
+    const production = !!env.production;
+
+    if (production) {
+        config["mode"] = "production";
+    } else {
+        config["devtool"] = "inline-source-map";
+    }
+
+    return config;
 };
