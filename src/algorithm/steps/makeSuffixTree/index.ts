@@ -3,17 +3,15 @@ import {
     AppendPairIndicesTransition,
     ConnectEqualPairsTransition,
     RemoveRepeatingPairsTransition,
-} from "../../../transitions";
-import {
     ShowArrayTransition,
     SortPairsByFirstElementTransition,
     SortPairsBySecondElementTransition,
     SplitIntoPairsTransition,
+    ClonePairArrayTransition,
+    HighlightRepeatingPairsTransition,
+    PushArrayToStackTransition,
+    ShowTrivialTreeTransition,
 } from "../../../transitions";
-import ClonePairArrayTransition from "../../../transitions/ClonePairArrayTransition";
-import HighlightRepeatingPairsTransition from "../../../transitions/HighlightRepeatingPairsTransition";
-import PushArrayToStackTransition from "../../../transitions/PushArrayToStackTransition";
-import ShowTrivialTreeTransition from "../../../transitions/ShowTrivialTreeTransition";
 import { Edge, Leaf, Root } from "../../class";
 import { character } from "../../types";
 import makeEvenTree from "../makeEvenTree";

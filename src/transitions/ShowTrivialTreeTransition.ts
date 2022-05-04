@@ -1,9 +1,9 @@
+import * as state from "../state";
 import { Root } from "../algorithm/class";
 import { character } from "../algorithm/types";
 import TreeView from "../objects/TreeView";
-import TransitionBase from "./TransitionBase";
-import * as state from "../state";
 import PairArrayView from "../objects/PairArrayView";
+import TransitionBase from "./TransitionBase";
 
 export default class ShowTrivialTreeTransition extends TransitionBase {
 	description: string = "Для строки длиной 1 суффиксное дерево строится тривиально";

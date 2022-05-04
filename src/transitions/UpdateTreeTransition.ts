@@ -5,7 +5,7 @@ import * as state from "../state";
 
 // Extremely simple transition.
 // Replaces tree data and runs default animation.
-export default class UpdateTreeTransition extends TransitionBase {
+export default abstract class UpdateTreeTransition extends TransitionBase {
     public tree: Root<character>;
 	public previousTree: Root<character>;
 

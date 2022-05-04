@@ -9,3 +9,7 @@ export { default as AppendPairIndicesTransition } from "./AppendPairIndicesTrans
 export { default as ClonePairArrayTransition } from "./ClonePairArrayTransition";
 export { default as ConnectEqualPairsTransition } from "./ConnectEqualPairsTransition";
 export { default as HighlightRepeatingPairsTransition } from "./HighlightRepeatingPairsTransition";
+export { default as ExtractArrayFromStackTransition } from "./ExtractArrayFromStackTransition";
+export { default as PushArrayToStackTransition } from "./PushArrayToStackTransition";
+export { default as ShowTrivialTreeTransition } from "./ShowTrivialTreeTransition";
+export { default as UpdateTreeTransition } from "./UpdateTreeTransition";
