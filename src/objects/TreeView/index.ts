@@ -74,14 +74,20 @@ export default class TreeView {
                 (exit) => exit.style("opacity", "1").transition().duration(400).style("opacity", "0").remove()
             );
 
-        // TODO: aniimate links
         // Links.
-        linksContainer.selectChild("path").attr("d", (d) => {
-            return d3.linkVertical()({
-                source: [d.source.x, d.source.y],
-                target: [d.target.x, d.target.y],
-            });
-        });
+        linksContainer
+            .selectChild("path")
+            .transition()
+            .duration(400)
+            .attr("d", (d) =>
+                d3
+                    .linkHorizontal()
+                    .source((d) => [d.source[0], d.source[1]])
+                    .target((d) => [d.target[0], d.target[1]])({
+                    source: [d.source.x, d.source.y],
+                    target: [d.target.x, d.target.y],
+                })
+            );
 
         // Labels.
         const labels = linksContainer.selectChild(".link-label").attr("transform", (d) => {
