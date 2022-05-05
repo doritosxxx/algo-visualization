@@ -35,13 +35,23 @@
             <div id="controls">
                 <div id="controls__frames-wrapper">
                     <button class="change_frame_button button-styled" id="frames-button--prev">&lt;</button>
-                    <input type="range" name="frame" id="frames-slider" min="0" max="0" value="0" step="1" disabled/>
+                    <input type="range" name="frame" id="frames-slider" min="0" max="0" value="0" step="1" disabled />
                     <button class="change_frame_button button-styled" id="frames-button--next">&gt;</button>
                 </div>
                 <div id="controls__buttons">
                     <div>
-                        <input type="text" name="input-string" id="input-string" placeholder="Input string" maxlength="20"/>
-                        <button id="button-start" class="button-styled">Generate</button>
+                        <form style="height: 100%">
+                            <input
+                                style="height: 100%; box-sizing: border-box"
+                                type="text"
+                                name="input-string"
+                                id="input-string"
+                                placeholder="Input string"
+                                maxlength="20"
+                                required
+                            />
+                            <button id="button-start" class="button-styled" type="submit">Generate</button>
+                        </form>
                     </div>
                     <div>
                         <button id="button-pause-play" class="button-styled">Pause</button>

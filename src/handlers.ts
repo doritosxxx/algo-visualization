@@ -11,7 +11,12 @@ window.addEventListener("transitionIndexChanged", function (event: CustomEventIn
 });
 
 function main() {
-    document.querySelector("#button-start").addEventListener("click", onStartVisualizationButtonClick);
+    document.querySelector("#controls__buttons form").addEventListener("submit", function (e) {
+        e.preventDefault();
+        const string = (document.querySelector("#input-string") as HTMLInputElement).value;
+
+        restart(string);
+    });
 
     // Button click.
     document.querySelector("#frames-button--prev").addEventListener("click", movePrev);
@@ -50,10 +55,4 @@ function main() {
         playButton.classList.add("bring-attention");
         setTimeout(() => playButton.classList.remove("bring-attention"), 3500);
     });
-}
-
-function onStartVisualizationButtonClick() {
-    const string = (document.querySelector("#input-string") as HTMLInputElement).value;
-
-    restart(string);
 }
