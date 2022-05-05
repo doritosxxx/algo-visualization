@@ -1,8 +1,8 @@
 import * as state from "../state";
 import { Root } from "../algorithm/class";
 import { character } from "../algorithm/types";
-import TreeView from "../objects/TreeView";
-import PairArrayView from "../objects/PairArrayView";
+import TreeView from "../views/TreeView";
+import PairArrayView from "../views/PairArrayView";
 import TransitionBase from "./TransitionBase";
 
 export default class ShowTrivialTreeTransition extends TransitionBase {

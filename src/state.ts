@@ -1,7 +1,7 @@
-import PairArrayView from "./objects/PairArrayView";
-import StackView from "./objects/StackView";
-import StatusbarView from "./objects/StatusbarView";
-import TreeView from "./objects/TreeView";
+import PairArrayView from "./views/PairArrayView";
+import StackView from "./views/StackView";
+import StatusbarView from "./views/StatusbarView";
+import TreeView from "./views/TreeView";
 
 interface IState {
     stack: StackView;

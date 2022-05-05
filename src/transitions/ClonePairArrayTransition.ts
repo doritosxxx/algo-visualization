@@ -1,7 +1,7 @@
 import * as d3 from "d3";
 import { Pair } from "../algorithm/class";
 import { character } from "../algorithm/types";
-import PairArrayView from "../objects/PairArrayView";
+import PairArrayView from "../views/PairArrayView";
 import TransitionBase from "./TransitionBase";
 import * as state from "../state";
 

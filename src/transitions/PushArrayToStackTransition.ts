@@ -1,4 +1,4 @@
-import PairArrayView from "../objects/PairArrayView";
+import PairArrayView from "../views/PairArrayView";
 import TransitionBase from "./TransitionBase";
 import * as state from "../state";
 
