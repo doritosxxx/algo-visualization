@@ -13,3 +13,6 @@ export { default as ExtractArrayFromStackTransition } from "./ExtractArrayFromSt
 export { default as PushArrayToStackTransition } from "./PushArrayToStackTransition";
 export { default as ShowTrivialTreeTransition } from "./ShowTrivialTreeTransition";
 export { default as UpdateTreeTransition } from "./UpdateTreeTransition";
+export { default as UnfoldEvenTreeTransition } from "./UnfoldEvenTreeTransition";
+export { default as MultiplyEvenTreeIndicesTransition } from "./MultiplyEvenTreeIndicesTransition";
+export { default as RemoveEvenTreeCommonBeginningsTransition } from "./RemoveEvenTreeCommonBeginningsTransition";
