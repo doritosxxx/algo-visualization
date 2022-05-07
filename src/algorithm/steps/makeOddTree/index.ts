@@ -36,12 +36,8 @@ function makeTrie<T extends character>(strings: T[][]): Root<T> {
         current.children.push(new Leaf<T>(-1));
     }
 
-    console.log(root instanceof Root);
     compress(root);
-    console.log(root instanceof Root);
-
     reorder(root);
-    console.log(root instanceof Root);
 
     return root;
 }
