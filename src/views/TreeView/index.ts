@@ -1,7 +1,7 @@
 import * as d3 from "d3";
 import { HierarchyPointLink, HierarchyPointNode } from "d3";
 import { Edge, Leaf, Root } from "../../algorithm/class";
-import { character } from "../../algorithm/types";
+import { character, color } from "../../algorithm/types";
 import * as state from "../../state";
 import "./style.css";
 
@@ -22,6 +22,13 @@ function setSubstringTooltip<T extends character>(node: Edge<T>) {
     }
 }
 
+function setColorRecursive<T extends character>(tree: Edge<T>, type: color | null) {
+    tree.type = type;
+    for (const child of tree.children) {
+        setColorRecursive(child, type);
+    }
+}
+
 export default class TreeView {
     private width: number = config.svg_width;
     private height: number = config.svg_height;
@@ -36,8 +43,7 @@ export default class TreeView {
             .attr("width", this.width)
             .attr("height", this.height)
             .attr("viewBox", `0 0 ${this.width} ${this.height}`)
-            .attr("fill", "none")
-            .attr("stroke", "black");
+            .attr("fill", "none");
 
         const padding = this.container.append("g").attr("transform", `translate(0 ${config.node_radius})`);
 
@@ -74,7 +80,7 @@ export default class TreeView {
                 (enter) => {
                     const groups = enter.append("g");
                     // Links.
-                    groups.append("path");
+                    groups.append("path").classed("link", true);
                     // Labels.
                     const labels = groups.append("g").classed("link-label", true);
                     labels.append("rect").attr("fill", "white");
@@ -100,7 +106,16 @@ export default class TreeView {
                     source: [d.source.x, d.source.y],
                     target: [d.target.x, d.target.y],
                 })
-            );
+            )
+            .each(function (datum) {
+                const link = this as SVGPathElement;
+
+                link.classList.remove("odd");
+                link.classList.remove("even");
+                if (datum.target.data.type != null) {
+                    link.classList.add(datum.target.data.type);
+                }
+            });
 
         // Labels.
         const labels = linksContainer.selectChild(".link-label");
@@ -126,6 +141,7 @@ export default class TreeView {
 
                 const padding = 2;
                 const rect = parent.querySelector("rect");
+                rect.setAttribute("stroke", "black");
                 rect.setAttribute("width", boundBox.width + 2 * padding + "");
                 rect.setAttribute("height", boundBox.height + 2 * padding + "");
                 rect.setAttribute("transform", `translate(${-boundBox.width / 2 - padding} ${-4 * padding})`);
@@ -197,5 +213,13 @@ export default class TreeView {
             .duration(400)
             .attr("x", (d) => d.x)
             .attr("y", (d) => d.y + 3 * config.node_radius);
+    }
+
+    public redraw() {
+        this.setData(this.tree);
+    }
+
+    public setColor(type: color | null) {
+        setColorRecursive(this.tree, type);
     }
 }

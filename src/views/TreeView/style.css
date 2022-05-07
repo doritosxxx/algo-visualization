@@ -1,11 +1,28 @@
 .node {
-	fill: gray;
+    fill: gray;
+    stroke: black;
+
+    transition: 0.4s fill;
 }
 
 .node.odd {
-	fill: red;
+    fill: var(--color-odd);
 }
 
 .node.even {
-	fill: blue;
+    fill: var(--color-even);
+}
+
+.link {
+    stroke: black;
+    transition: 0.4s stroke;
+    stroke-width: 2;
+}
+
+.link.odd {
+    stroke: var(--color-odd);
+}
+
+.link.even {
+    stroke: var(--color-even);
 }
