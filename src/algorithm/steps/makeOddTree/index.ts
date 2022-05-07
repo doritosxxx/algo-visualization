@@ -1,9 +1,12 @@
 import { addTransition } from "../../../controller";
+import { ShowOddTreeTransition } from "../../../transitions";
 import { Edge, Leaf, Pair, Root } from "../../class";
 import { character } from "../../types";
 
 export default function makeOddTree<T extends character>(string: T[]): Root<T> {
-    return makeTrie(getOddSuffixes(string));
+    const tree = makeTrie(getOddSuffixes(string));
+    addTransition(new ShowOddTreeTransition(tree));
+    return tree;
 }
 
 function getOddSuffixes<T>(string: T[]): T[][] {
@@ -33,6 +36,31 @@ function makeTrie<T extends character>(strings: T[][]): Root<T> {
         current.children.push(new Leaf<T>(-1));
     }
 
+    compress(root);
+
     return root;
     // compress and reorder;
+}
+
+function compress<T extends character>(node: Edge<T>) {
+    if (node instanceof Leaf) {
+        return;
+    }
+
+    while (node.children.length == 1 && !(node.children[0] instanceof Leaf)) {
+        const child = node.children[0];
+        node.label.push(...child.label);
+        node.children = child.children;
+    }
+
+    for (const child of node.children) {
+        compress(child);
+    }
+}
+
+function reorder<T extends character>(node: Edge<T>) {
+    node.children.sort((a, b) => (a.label[0] < b.label[0] ? -1 : 1));
+    for (const child of node.children) {
+        reorder(child);
+    }
 }
