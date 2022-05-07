@@ -2,6 +2,7 @@ import * as d3 from "d3";
 import { HierarchyPointLink, HierarchyPointNode } from "d3";
 import { Edge, Leaf, Root } from "../../algorithm/class";
 import { character } from "../../algorithm/types";
+import * as state from "../../state";
 import "./style.css";
 
 const config = {
@@ -9,6 +10,17 @@ const config = {
     svg_height: 400,
     node_radius: 10,
 };
+
+function setSubstringTooltip<T extends character>(node: Edge<T>) {
+    if (node instanceof Root) {
+        node["tooltip"] = "";
+    }
+
+    for (const child of node.children) {
+        child["tooltip"] = (node["tooltip"] ?? "") + child.label.join("");
+        setSubstringTooltip(child);
+    }
+}
 
 export default class TreeView {
     private width: number = config.svg_width;
@@ -45,6 +57,7 @@ export default class TreeView {
 
     public setData(tree: Root<character>) {
         this.tree = tree;
+        setSubstringTooltip(this.tree);
 
         const layout = d3.tree<Edge<character>>().size([this.width, this.height - config.node_radius * 5])(
             d3.hierarchy(tree, (node) => node.children)
@@ -135,7 +148,17 @@ export default class TreeView {
                         .classed("node", true)
                         .attr("r", config.node_radius)
                         .attr("cx", (d) => d.x)
-                        .attr("cy", (d) => d.y);
+                        .attr("cy", (d) => d.y)
+                        // Set tooltip.
+                        .on("mouseover", () => state.get().tooltip.show())
+                        .on("mousemove", function (event: MouseEvent, d) {
+                            const tooltip = state.get().tooltip;
+                            tooltip.setPosition(event.pageX, event.pageY);
+                            tooltip.setText(
+                                `${d.data instanceof Leaf ? "suffix" : "substring"}:"${d.data["tooltip"]}"`
+                            );
+                        })
+                        .on("mouseout", () => state.get().tooltip.hide());
 
                     // Leaf Labels.
                     groups.append("text").classed("leaf-label", true).attr("fill", "black");
