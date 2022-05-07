@@ -71,10 +71,3 @@ function reorder<T extends character>(node: Edge<T>) {
         reorder(child);
     }
 }
-
-function setLeafIndices<T extends character>(root: Root<T>) {
-    const leaves: {
-        length: number;
-        leaf: Leaf<T>;
-    }[] = [];
-}
