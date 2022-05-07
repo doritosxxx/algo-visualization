@@ -1,6 +1,6 @@
 import ICloneable from "../interface/ICloneable";
 import IShallowCloneable from "../interface/IShallowCloneable";
-import { character, word } from "../types";
+import { character, color } from "../types";
 
 let edge_id = 0;
 
@@ -14,7 +14,7 @@ function getEdgeId() {
 export default class Edge<T extends character> implements ICloneable<Edge<T>>, IShallowCloneable<Edge<T>> {
     public children: Edge<T>[] = [];
     public label: T[];
-    public type: "odd" | "even" | null = null;
+    public type: color | null = null;
 
     public id: number;
 
