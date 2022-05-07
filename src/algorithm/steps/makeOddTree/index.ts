@@ -32,8 +32,7 @@ function makeTrie<T extends character>(strings: T[][]): Root<T> {
             }
             current = next;
         }
-        // TODO: index?
-        current.children.push(new Leaf<T>(-1));
+        current.children.push(new Leaf<T>(2 * strings.length - word.length));
     }
 
     compress(root);
@@ -59,8 +58,23 @@ function compress<T extends character>(node: Edge<T>) {
 }
 
 function reorder<T extends character>(node: Edge<T>) {
-    node.children.sort((a, b) => (a.label[0] < b.label[0] ? -1 : 1));
+    node.children.sort((a, b) => {
+        if (a.label.length == 0) {
+            return 1;
+        }
+        if (b.label.length == 0) {
+            return -1;
+        }
+        return a.label[0] < b.label[0] ? -1 : 1;
+    });
     for (const child of node.children) {
         reorder(child);
     }
+}
+
+function setLeafIndices<T extends character>(root: Root<T>) {
+    const leaves: {
+        length: number;
+        leaf: Leaf<T>;
+    }[] = [];
 }
