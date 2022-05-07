@@ -1,0 +1,23 @@
+.tooltip {
+    border-radius: 2px;
+    padding: 2px;
+    box-sizing: border-box;
+    box-shadow: 0 0 0 1px black;
+    background-color: white;
+
+    font-size: 0.6em;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 100;
+    transform: translate(-50%, -100%);
+}
+
+.tooltip.hidden {
+    display: none;
+}
