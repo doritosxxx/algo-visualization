@@ -30,8 +30,6 @@ export function reset() {
         state.evenTreeView?.container.remove();
         state.oddTreeView?.container.remove();
         state.mergedTreeView?.container.remove();
-
-        state.svg.setSize(1000, 600);
     }
 
     state = {
@@ -46,6 +44,8 @@ export function reset() {
         oddTreeView: null,
         mergedTreeView: null,
     };
+
+	state.svg.setSize(1000, 600);
 }
 
 export function get(): IState {

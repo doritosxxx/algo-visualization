@@ -6,16 +6,13 @@ export default class SVGView {
     public height: number;
 
     private viewBox: [number, number, number, number] = [0, 0, 0, 0];
+
     private getViewBox() {
         return this.viewBox.join(" ");
     }
 
     public constructor() {
         this.container = d3.select("#svg");
-    }
-
-    public clear() {
-        // this.container.textContent = "";
     }
 
     public setSize(width: number, height: number) {
@@ -42,6 +39,6 @@ export default class SVGView {
         this.viewBox[0] = x + width / 2 - this.width / 2;
         this.viewBox[1] = y + height / 2 - this.height / 2;
 
-		this.updateViewBox();
+        this.updateViewBox();
     }
 }
