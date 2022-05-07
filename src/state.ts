@@ -1,11 +1,13 @@
 import PairArrayView from "./views/PairArrayView";
 import StackView from "./views/StackView";
 import StatusbarView from "./views/StatusbarView";
+import SVGView from "./views/SVGView";
 import TreeView from "./views/TreeView";
 
 interface IState {
     stack: StackView;
     statusbar: StatusbarView;
+    svg: SVGView;
     pairArrayView: PairArrayView;
     pairArrayViewClone: PairArrayView;
     evenTreeView: TreeView;
@@ -16,6 +18,7 @@ interface IState {
 let state: IState = null;
 const stack = new StackView();
 const statusbar = new StatusbarView();
+const svg = new SVGView();
 
 export function reset() {
     if (state !== null) {
@@ -27,11 +30,14 @@ export function reset() {
         state.evenTreeView?.container.remove();
         state.oddTreeView?.container.remove();
         state.mergedTreeView?.container.remove();
+
+        state.svg.setSize(1000, 600);
     }
 
     state = {
         stack: stack,
         statusbar: statusbar,
+        svg: svg,
 
         pairArrayView: null,
         pairArrayViewClone: null,

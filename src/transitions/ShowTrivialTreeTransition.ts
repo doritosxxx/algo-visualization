@@ -6,7 +6,7 @@ import PairArrayView from "../views/PairArrayView";
 import TransitionBase from "./TransitionBase";
 
 export default class ShowTrivialTreeTransition extends TransitionBase {
-	description: string = "Для строки длиной 1 суффиксное дерево строится тривиально";
+    description: string = "Для строки длиной 1 суффиксное дерево строится тривиально";
     private hiddenArrayView: PairArrayView;
     private hiddenElementParent: HTMLElement;
 
@@ -22,10 +22,14 @@ export default class ShowTrivialTreeTransition extends TransitionBase {
         const svg = document.querySelector("#svg") as SVGSVGElement;
         svg.appendChild(treeView.container.node());
 
+        /*
         const [width, height] = ["width", "height"].map((key) => svg.getAttribute(key));
         const viewBox = (svg.getAttribute("viewBox") ?? `0 0 ${width} ${height}`).split(" ");
         viewBox[0] = (-width / 2 + 400 / 2).toString();
         svg.setAttribute("viewBox", viewBox.join(" "));
+        */
+        const height = state.get().svg.height;
+        state.get().svg.centerBoundBox(0, 0, 400, height);
 
         treeView.setSize(400, +height);
         treeView.setData(this.tree);
