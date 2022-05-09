@@ -4,7 +4,7 @@ import TransitionBase from "./TransitionBase";
 import * as state from "../state";
 import TreeView from "../views/TreeView";
 
-type TreeName = "odd" | "even";
+type TreeName = "odd" | "even" | "merged";
 
 // Extremely simple transition.
 // Replaces tree data and runs default animation.
@@ -20,8 +20,16 @@ export default abstract class UpdateTreeTransition extends TransitionBase {
     }
 
     private getTreeView(): TreeView {
-        const treeView = this.name == "even" ? state.get().evenTreeView : state.get().oddTreeView;
-        return treeView;
+        if (this.name == "even") {
+            return state.get().evenTreeView;
+        }
+        if (this.name == "odd") {
+            return state.get().oddTreeView;
+        }
+        if (this.name == "merged") {
+            return state.get().mergedTreeView;
+        }
+        return null;
     }
 
     _introduce() {
