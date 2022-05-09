@@ -191,6 +191,7 @@ export default class TreeView {
                 },
                 (exit) => exit.style("opacity", "1").transition().duration(400).style("opacity", "0").remove()
             )
+            .attr("data-id", (d) => d.data.id)
             .each(function (datum) {
                 const node = this as SVGTextElement;
 
