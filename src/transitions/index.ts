@@ -17,4 +17,4 @@ export { default as UnfoldEvenTreeTransition } from "./UnfoldEvenTreeTransition"
 export { default as MultiplyEvenTreeIndicesTransition } from "./MultiplyEvenTreeIndicesTransition";
 export { default as RemoveEvenTreeCommonBeginningsTransition } from "./RemoveEvenTreeCommonBeginningsTransition";
 export { default as ShowOddTreeTransition } from "./ShowOddTreeTransition";
-
+export { default as ShowMergedTreeTransition } from "./ShowMergedTreeTransition";
