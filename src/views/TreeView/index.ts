@@ -12,6 +12,9 @@ const config = {
 };
 
 function setSubstringTooltip<T extends character>(node: Edge<T>) {
+    if (!node) {
+        return;
+    }
     if (node instanceof Root) {
         node["tooltip"] = "";
     }
@@ -27,7 +30,7 @@ export default class TreeView {
     private height: number = config.svg_height;
 
     public container: d3.Selection<SVGSVGElement, undefined, null, undefined>;
-    public tree: Root<character>;
+    public tree: Root<character> = null;
 
     public constructor() {
         this.container = d3
@@ -59,13 +62,13 @@ export default class TreeView {
         setSubstringTooltip(this.tree);
 
         const layout = d3.tree<Edge<character>>().size([this.width, this.height - config.node_radius * 5])(
-            d3.hierarchy(tree as Edge<character>, (node) => node.children)
+            d3.hierarchy(tree as Edge<character>, (node) => node?.children)
         );
 
         const linksContainer = this.container
             .select(".links")
             .selectChildren("g")
-            .data(layout.links(), (d) => {
+            .data(tree ? layout.links() : [], (d) => {
                 const datum = d as HierarchyPointLink<Edge<character>>;
                 return datum.target.data.id;
             })
@@ -143,7 +146,7 @@ export default class TreeView {
         const nodesContainer = this.container
             .select(".nodes")
             .selectChildren("g")
-            .data(layout.descendants(), function (d) {
+            .data(tree ? layout.descendants() : [], function (d) {
                 const datum = d as HierarchyPointNode<Edge<character>>;
                 return datum.data.id;
             })

@@ -73,9 +73,9 @@ function mergeSubtrees<T extends character>(
             const pushed = even_child.cloneType();
             pushed.type = even_child.type;
             merged.children.push(pushed);
+            addTransition(new UpdateTreeTransition(mergedRoot, "merged"));
             // TODO: Save dual edge.
             mergeSubtrees(even_child, odd_child, pushed, dualEdges, evenRoot, oddRoot, mergedRoot);
-            addTransition(new UpdateTreeTransition(mergedRoot, "merged"));
             odd_index++;
             even_index++;
         }
