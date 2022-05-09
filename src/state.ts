@@ -50,7 +50,7 @@ export function reset() {
         mergedTreeView: null,
     };
 
-	state.svg.setSize(1000, 600);
+	state.svg.setSize(1200, 600);
 }
 
 export function get(): IState {
