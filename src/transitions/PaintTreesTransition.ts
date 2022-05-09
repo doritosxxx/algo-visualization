@@ -6,11 +6,11 @@ export default class PaintTreesTransition extends TransitionBase {
 
     _introduce() {
         const even = state.get().evenTreeView;
-        even.setColor("even");
+        even.tree.setSubtreeColor("even");
         even.redraw();
 
         const odd = state.get().oddTreeView;
-        odd.setColor("odd");
+        odd.tree.setSubtreeColor("odd");
         odd.redraw();
     }
 
@@ -18,9 +18,9 @@ export default class PaintTreesTransition extends TransitionBase {
         const even = state.get().evenTreeView;
         const odd = state.get().oddTreeView;
 
-        even.setColor(null);
+        even.tree.setSubtreeColor(null);
         even.redraw();
-        odd.setColor(null);
+        odd.tree.setSubtreeColor(null);
         odd.redraw();
     }
 }

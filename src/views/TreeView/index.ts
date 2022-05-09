@@ -1,7 +1,7 @@
 import * as d3 from "d3";
 import { HierarchyPointLink, HierarchyPointNode } from "d3";
 import { Edge, Leaf, Root } from "../../algorithm/class";
-import { character, color } from "../../algorithm/types";
+import { character } from "../../algorithm/types";
 import * as state from "../../state";
 import "./style.css";
 
@@ -19,13 +19,6 @@ function setSubstringTooltip<T extends character>(node: Edge<T>) {
     for (const child of node.children) {
         child["tooltip"] = (node["tooltip"] ?? "") + child.label.join("");
         setSubstringTooltip(child);
-    }
-}
-
-function setColorRecursive<T extends character>(tree: Edge<T>, type: color | null) {
-    tree.type = type;
-    for (const child of tree.children) {
-        setColorRecursive(child, type);
     }
 }
 
@@ -66,7 +59,7 @@ export default class TreeView {
         setSubstringTooltip(this.tree);
 
         const layout = d3.tree<Edge<character>>().size([this.width, this.height - config.node_radius * 5])(
-            d3.hierarchy(tree, (node) => node.children)
+            d3.hierarchy(tree as Edge<character>, (node) => node.children)
         );
 
         const linksContainer = this.container
@@ -218,9 +211,5 @@ export default class TreeView {
 
     public redraw() {
         this.setData(this.tree);
-    }
-
-    public setColor(type: color | null) {
-        setColorRecursive(this.tree, type);
     }
 }

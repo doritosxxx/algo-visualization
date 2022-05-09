@@ -36,19 +36,18 @@ export default class Edge<T extends character> implements ICloneable<Edge<T>>, I
         return clone;
     }
 
+    /**
+     * Clones edge type and constructor data.
+     * @returns Cloned edge object
+     */
     cloneType(): Edge<T> {
         return new Edge<T>([...this.label]);
     }
 
-    /*
-    public toString(): string {
-        return this.getStringView(0);
+    public setSubtreeColor(type: color | null) {
+        this.type = type;
+        for (const child of this.children) {
+            child.setSubtreeColor(type);
+        }
     }
-
-    private getStringView(depth: number): string {
-        return this.children
-            .map((edge) => "\t".repeat(depth) + edge.letters.join("") + "\n" + edge.getStringView(depth + 1))
-            .join("");
-    }
-	*/
 }
