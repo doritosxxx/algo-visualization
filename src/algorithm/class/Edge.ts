@@ -36,6 +36,10 @@ export default class Edge<T extends character> implements ICloneable<Edge<T>>, I
         return clone;
     }
 
+    cloneType(): Edge<T> {
+        return new Edge<T>([...this.label]);
+    }
+
     /*
     public toString(): string {
         return this.getStringView(0);

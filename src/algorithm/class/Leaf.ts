@@ -19,4 +19,8 @@ export default class Leaf<T extends character> extends Edge<T> {
         clone.type = this.type;
         return clone;
     }
+
+    cloneType(): Leaf<T> {
+        return new Leaf(this.suffixIndex);
+    }
 }

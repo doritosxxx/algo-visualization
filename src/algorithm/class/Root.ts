@@ -7,7 +7,7 @@ export default class Root<T extends character> extends Edge<T> {
         super([]);
     }
 
-	clone(): Root<T> {
+    clone(): Root<T> {
         const clone = this.cloneShallow();
         clone.children = this.children.map((child) => child.clone());
         return clone;
@@ -18,5 +18,9 @@ export default class Root<T extends character> extends Edge<T> {
         clone.id = this.id;
         clone.type = this.type;
         return clone;
+    }
+
+    cloneType(): Root<T> {
+        return new Root<T>();
     }
 }
