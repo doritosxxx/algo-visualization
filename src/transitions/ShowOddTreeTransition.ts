@@ -21,7 +21,6 @@ export default class ShowOddTreeTransition extends TransitionBase {
         svg.appendChild(treeView.container.node());
 
         const height = state.get().svg.height;
-        console.log(state.get().svg);
         state.get().svg.centerBoundBox(0, 0, 2 * 400, height);
 
         treeView.setSize(400, +height);
