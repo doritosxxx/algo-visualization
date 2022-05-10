@@ -89,20 +89,10 @@ export default class TreeView {
                 (exit) => exit.style("opacity", "1").transition().duration(400).style("opacity", "0").remove()
             );
 
-        const movedEdges = this.movedEdges;
         // Links.
         const paths = linksContainer
             .selectChild("path")
             .attr("data-id", (d) => d.target.data.id)
-			/*
-            .attr("d", function (d) {
-                const path = this as SVGPathElement;
-                const id = +path.getAttribute("data-id");
-                const moveData = movedEdges.find((e) => e[0] == id);
-                if (!moveData) return undefined;
-
-                return document.querySelector(`[data-id="${moveData[1]}"]`).getAttribute("d");
-            })*/
             .transition()
             .duration(400)
             .attr("d", (d) =>
@@ -219,14 +209,6 @@ export default class TreeView {
             .duration(400)
             .attr("x", (d) => d.x)
             .attr("y", (d) => d.y + 3 * config.node_radius);
-
-        this.movedEdges = [];
-    }
-
-    private movedEdges: [number, number][] = [];
-
-    public setEdgePosition(edgeId: number, sourceEdgeId: number) {
-        this.movedEdges.push([edgeId, sourceEdgeId]);
     }
 
     public redraw() {
