@@ -9,7 +9,7 @@ type TreeName = "odd" | "even" | "merged";
 // Extremely simple transition.
 // Replaces tree data and runs default animation.
 export default abstract class UpdateTreeTransition extends TransitionBase {
-    private name: TreeName;
+    protected name: TreeName;
     public tree: Root<character>;
     public previousTree: Root<character>;
 

@@ -2,6 +2,7 @@ import { addTransition } from "../../../controller";
 import { ShowMergedTreeTransition, UpdateTreeTransition } from "../../../transitions";
 import PaintTreesTransition from "../../../transitions/PaintTreesTransition";
 import PullEdgeToMergedTreeTransition from "../../../transitions/PullEdgeToMergedTreeTransition";
+import SplitEdgeTransition from "../../../transitions/SplitEdgeTransition";
 import UpdateMergedTreeTransition from "../../../transitions/UpdateMergedTreeTransition";
 import { Edge, Root } from "../../class";
 import { character } from "../../types";
@@ -62,11 +63,13 @@ function mergeSubtrees<T extends character>(
         else {
             // Break longer edge.
             if (even_child.label.length < odd_child.label.length) {
+                const label = odd_child.label.join("");
                 breakEdge(odd_child, even_child.label.length);
-                addTransition(new UpdateTreeTransition(oddRoot, "odd"));
+                addTransition(new SplitEdgeTransition(oddRoot, "odd", label, even_child.label.length));
             } else if (even_child.label.length > odd_child.label.length) {
+                const label = even_child.label.join("");
                 breakEdge(even_child, odd_child.label.length);
-                addTransition(new UpdateTreeTransition(evenRoot, "even"));
+                addTransition(new SplitEdgeTransition(evenRoot, "even", label, odd_child.label.length));
             }
             // Now we have edges with same label length.
             // TODO: Break<>EdgeTransiton.
