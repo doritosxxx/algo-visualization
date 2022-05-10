@@ -19,8 +19,12 @@
 
 .link {
     stroke: black;
-    transition: 0.4s stroke;
+    transition: var(--frame-length) stroke, var(--frame-length) stroke-width;
     stroke-width: 2;
+}
+
+.link.thick {
+    stroke-width: 6;
 }
 
 .link.odd {
