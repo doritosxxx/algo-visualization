@@ -1,3 +1,7 @@
+.tree-view {
+    overflow: visible;
+}
+
 .node {
     fill: gray;
     stroke: black;

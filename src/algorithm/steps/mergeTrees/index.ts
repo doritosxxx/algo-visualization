@@ -1,6 +1,7 @@
 import { addTransition } from "../../../controller";
 import { ShowMergedTreeTransition, UpdateTreeTransition } from "../../../transitions";
 import PaintTreesTransition from "../../../transitions/PaintTreesTransition";
+import PullEdgeToMergedTreeTransition from "../../../transitions/PullEdgeToMergedTreeTransition";
 import UpdateMergedTreeTransition from "../../../transitions/UpdateMergedTreeTransition";
 import { Edge, Root } from "../../class";
 import { character } from "../../types";
@@ -73,7 +74,7 @@ function mergeSubtrees<T extends character>(
             const pushed = even_child.cloneType();
             pushed.type = even_child.type;
             merged.children.push(pushed);
-            addTransition(new UpdateTreeTransition(mergedRoot, "merged"));
+            addTransition(new PullEdgeToMergedTreeTransition(mergedRoot, pushed.id, even_child.id));
             // TODO: Save dual edge.
             mergeSubtrees(even_child, odd_child, pushed, dualEdges, evenRoot, oddRoot, mergedRoot);
             odd_index++;
@@ -81,11 +82,11 @@ function mergeSubtrees<T extends character>(
         }
     }
 
+    // Append remaining subtrees without merging.
     while (even_index < even.children.length) {
         merged.children.push(even.children[even_index++].clone());
         addTransition(new UpdateTreeTransition(mergedRoot, "merged"));
     }
-
     while (odd_index < odd.children.length) {
         merged.children.push(odd.children[odd_index++].clone());
         addTransition(new UpdateTreeTransition(mergedRoot, "merged"));

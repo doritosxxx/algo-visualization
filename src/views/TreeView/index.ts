@@ -81,7 +81,7 @@ export default class TreeView {
                     const labels = groups.append("g").classed("link-label", true);
                     labels.append("rect").attr("fill", "white");
                     labels.append("text").attr("fill", "black");
-                    return groups.style("opacity", "0").transition().duration(400).style("opacity", "1");
+                    return groups; //.style("opacity", "0").transition().duration(400).style("opacity", "1");
                 },
                 (update) => {
                     return update;
@@ -89,14 +89,25 @@ export default class TreeView {
                 (exit) => exit.style("opacity", "1").transition().duration(400).style("opacity", "0").remove()
             );
 
+        const movedEdges = this.movedEdges;
         // Links.
-        linksContainer
+        const paths = linksContainer
             .selectChild("path")
+            .attr("data-id", (d) => d.target.data.id)
+			/*
+            .attr("d", function (d) {
+                const path = this as SVGPathElement;
+                const id = +path.getAttribute("data-id");
+                const moveData = movedEdges.find((e) => e[0] == id);
+                if (!moveData) return undefined;
+
+                return document.querySelector(`[data-id="${moveData[1]}"]`).getAttribute("d");
+            })*/
             .transition()
             .duration(400)
             .attr("d", (d) =>
                 d3
-                    .linkHorizontal()
+                    .linkVertical()
                     .source((d) => [d.source[0], d.source[1]])
                     .target((d) => [d.target[0], d.target[1]])({
                     source: [d.source.x, d.source.y],
@@ -176,18 +187,9 @@ export default class TreeView {
                     groups.append("text").classed("leaf-label", true).attr("fill", "black");
                     return groups.style("opacity", "0").transition().duration(400).style("opacity", "1");
                 },
-                (update) => {
-                    update
-                        .selectChild("circle")
-                        .transition()
-                        .duration(400)
-                        .attr("cx", (d) => d.x)
-                        .attr("cy", (d) => d.y);
-                    return update;
-                },
+                (update) => update,
                 (exit) => exit.style("opacity", "1").transition().duration(400).style("opacity", "0").remove()
             )
-            .attr("data-id", (d) => d.data.id)
             .each(function (datum) {
                 const node = this as SVGTextElement;
 
@@ -197,6 +199,13 @@ export default class TreeView {
                     node.classList.add(datum.data.type);
                 }
             });
+
+        nodesContainer
+            .selectChild("circle")
+            .transition()
+            .duration(400)
+            .attr("cx", (d) => d.x)
+            .attr("cy", (d) => d.y);
 
         nodesContainer
             .selectChild("text")
@@ -210,6 +219,14 @@ export default class TreeView {
             .duration(400)
             .attr("x", (d) => d.x)
             .attr("y", (d) => d.y + 3 * config.node_radius);
+
+        this.movedEdges = [];
+    }
+
+    private movedEdges: [number, number][] = [];
+
+    public setEdgePosition(edgeId: number, sourceEdgeId: number) {
+        this.movedEdges.push([edgeId, sourceEdgeId]);
     }
 
     public redraw() {
