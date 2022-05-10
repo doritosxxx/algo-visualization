@@ -83,7 +83,7 @@ function mergeSubtrees<T extends character>(
             const pushed = even_child.cloneType();
             pushed.type = even_child.type;
             merged.children.push(pushed);
-            addTransition(new PullEdgeToMergedTreeTransition(mergedRoot, pushed.id, even_child.id, odd_child.id));
+            addTransition(new PullEdgeToMergedTreeTransition(mergedRoot, pushed.id, even_child, odd_child));
             // TODO: Save dual edge.
             mergeSubtrees(even_child, odd_child, pushed, dualEdges, evenRoot, oddRoot, mergedRoot);
             odd_index++;

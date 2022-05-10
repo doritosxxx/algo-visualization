@@ -1,6 +1,6 @@
 import UpdateMergedTreeTransition from "./UpdateMergedTreeTransition";
 import * as state from "../state";
-import { Root } from "../algorithm/class";
+import { Edge, Root } from "../algorithm/class";
 import { character } from "../algorithm/types";
 
 export default class PullEdgeToMergedTreeTransition extends UpdateMergedTreeTransition {
@@ -10,11 +10,16 @@ export default class PullEdgeToMergedTreeTransition extends UpdateMergedTreeTran
     private sourceEdgeId: number;
     private dualEdgeId: number;
 
-    constructor(tree: Root<character>, edgeId: number, sourceEdgeId: number, dualEdgeId: number) {
+    private setDescription(first: string, second: string) {
+        this.description = `Переносим ребра "${first}" и "${second}" так как их длины равны и первый символ совпадает`;
+    }
+
+    constructor(tree: Root<character>, edgeId: number, evenEdge: Edge<character>, oddEdge: Edge<character>) {
         super(tree);
+        this.setDescription(evenEdge.label.join(""), oddEdge.label.join(""));
         this.edgeId = edgeId;
-        this.sourceEdgeId = sourceEdgeId;
-        this.dualEdgeId = dualEdgeId;
+        this.sourceEdgeId = evenEdge.id;
+        this.dualEdgeId = oddEdge.id;
     }
 
     private emphesizePulledEdges() {
