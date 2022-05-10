@@ -28,7 +28,6 @@ export default class PullEdgeToMergedTreeTransition extends UpdateMergedTreeTran
     }
 
     _introduce(): void {
-        state.get().mergedTreeView.setEdgePosition(this.edgeId, this.sourceEdgeId);
         super._introduce();
         this.emphesizePulledEdges();
     }

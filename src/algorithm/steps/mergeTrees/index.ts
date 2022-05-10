@@ -1,5 +1,6 @@
 import { addTransition } from "../../../controller";
 import { ShowMergedTreeTransition, UpdateTreeTransition } from "../../../transitions";
+import AppendSubtreeTransition from "../../../transitions/AppendSubtreeTransition";
 import PaintTreesTransition from "../../../transitions/PaintTreesTransition";
 import PullEdgeToMergedTreeTransition from "../../../transitions/PullEdgeToMergedTreeTransition";
 import SplitEdgeTransition from "../../../transitions/SplitEdgeTransition";
@@ -48,15 +49,22 @@ function mergeSubtrees<T extends character>(
         const even_child = even.children[even_index];
         const odd_child = odd.children[odd_index];
 
+		// If leaf is found we cant compare edges labels.
+        if (even_child.label.length == 0 || odd_child.label.length == 0) {
+            break;
+        }
+
         // Case 1. First letters are not equal.
         if (even_child.label[0] != odd_child.label[0]) {
             // Determine node with least letter and insert it into merged tree.
             if (even_child.label[0] < odd_child.label[0]) {
                 merged.children.push(even_child.clone());
                 even_index++;
+                addTransition(new AppendSubtreeTransition(mergedRoot, "even", getDescendantsIds(even_child)));
             } else {
                 merged.children.push(odd_child.clone());
                 odd_index++;
+                addTransition(new AppendSubtreeTransition(mergedRoot, "odd", getDescendantsIds(odd_child)));
             }
         }
         // First letters are equal.
@@ -86,12 +94,14 @@ function mergeSubtrees<T extends character>(
 
     // Append remaining subtrees without merging.
     while (even_index < even.children.length) {
-        merged.children.push(even.children[even_index++].clone());
-        addTransition(new UpdateTreeTransition(mergedRoot, "merged"));
+        const child = even.children[even_index++];
+        merged.children.push(child.clone());
+        addTransition(new AppendSubtreeTransition(mergedRoot, "even", getDescendantsIds(child)));
     }
     while (odd_index < odd.children.length) {
-        merged.children.push(odd.children[odd_index++].clone());
-        addTransition(new UpdateTreeTransition(mergedRoot, "merged"));
+        const child = odd.children[odd_index++];
+        merged.children.push(child.clone());
+        addTransition(new AppendSubtreeTransition(mergedRoot, "odd", getDescendantsIds(child)));
     }
 }
 
@@ -102,4 +112,12 @@ function breakEdge<T extends character>(edge: Edge<T>, length: number) {
 
     edge.label = edge.label.slice(0, length);
     edge.children = [added];
+}
+
+function getDescendantsIds<T extends character>(edge: Edge<T>, ids: number[] = []): number[] {
+    ids.push(edge.id);
+    for (const child of edge.children) {
+        getDescendantsIds(child, ids);
+    }
+    return ids;
 }
