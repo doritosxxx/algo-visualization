@@ -43,7 +43,6 @@ function mergeSubtrees<T extends character>(
     let even_index = 0;
     let odd_index = 0;
 
-    // TODO: check if child has empty label (is a leaf)
     // While there are something to compare.
     while (even_index < even.children.length && odd_index < odd.children.length) {
         const even_child = even.children[even_index];
