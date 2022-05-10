@@ -79,9 +79,9 @@ export default class TreeView {
                     groups.append("path").classed("link", true);
                     // Labels.
                     const labels = groups.append("g").classed("link-label", true);
-                    labels.append("rect").attr("fill", "white");
-                    labels.append("text").attr("fill", "black");
-                    return groups; //.style("opacity", "0").transition().duration(400).style("opacity", "1");
+                    labels.append("rect");
+                    labels.append("text");
+                    return groups.style("opacity", "0").transition().duration(400).style("opacity", "1");
                 },
                 (update) => {
                     return update;

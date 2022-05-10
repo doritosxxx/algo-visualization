@@ -30,3 +30,11 @@
 .link.even {
     stroke: var(--color-even);
 }
+
+.link-label rect {
+    fill: white;
+}
+
+.link-label text {
+    fill: black;
+}
