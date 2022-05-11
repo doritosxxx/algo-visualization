@@ -1,4 +1,5 @@
 import { addTransition } from "../../../controller";
+import ConvertMergedToSuffixTree from "../../../transitions/ConvertMergedToSuffixTree";
 import HideOddEvenTreesTransition from "../../../transitions/HideOddEvenTreesTransition";
 import RemoveDualEdgeTransition from "../../../transitions/RemoveDualEdgeTransition";
 import SplitDualEdgeTransition from "../../../transitions/SplitDualEdgeTransition";
@@ -16,7 +17,12 @@ function getCommonPrefixLength<T>(first: T[], second: T[]) {
     return i;
 }
 
-export default function removeDualEdges<T extends character>(merged: Root<T>, dualEdges: dualEdge<T>[]): Root<T> {
+function cleanup<T extends character>(merged: Root<T>) {
+    merged.setSubtreeColor(null);
+    addTransition(new ConvertMergedToSuffixTree(merged));
+}
+
+export default function removeDualEdges<T extends character>(merged: Root<T>, dualEdges: dualEdge<T>[]) {
     addTransition(new HideOddEvenTreesTransition());
 
     for (const edgePair of dualEdges) {
@@ -55,5 +61,5 @@ export default function removeDualEdges<T extends character>(merged: Root<T>, du
         }
     }
 
-    return merged;
+    cleanup(merged);
 }
