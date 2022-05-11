@@ -1,6 +1,6 @@
 import { addTransition } from "../../../controller";
 import { ShowOddTreeTransition } from "../../../transitions";
-import { Edge, Leaf, Pair, Root } from "../../class";
+import { Edge, Leaf, Root } from "../../class";
 import { character } from "../../types";
 
 export default function makeOddTree<T extends character>(string: T[]): Root<T> {
@@ -46,11 +46,12 @@ function compress<T extends character>(node: Edge<T>) {
         return;
     }
 
-    while (node.children.length == 1 && !(node.children[0] instanceof Leaf)) {
-        const child = node.children[0];
-        node.label.push(...child.label);
-        node.children = child.children;
-    }
+    if (!(node instanceof Root))
+        while (node.children.length == 1 && !(node.children[0] instanceof Leaf)) {
+            const child = node.children[0];
+            node.label.push(...child.label);
+            node.children = child.children;
+        }
 
     for (const child of node.children) {
         compress(child);
