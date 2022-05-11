@@ -69,7 +69,21 @@ export default class StackView {
     }
 
     public pop(): PairArrayView {
-        return this.stack.pop();
+        const top = this.stack.pop();
+        const node = top.container.node() as HTMLDivElement;
+        const dummy = createDummyElement(node);
+        dummy.style.height = node.offsetHeight + "px";
+        dummy.style.transition = "height var(--frame-length)";
+
+        (this.container.node() as HTMLDivElement).replaceChild(dummy, node);
+
+        dummy.addEventListener("transitionend", function () {
+            dummy.remove();
+        });
+
+        // Trigger animation.
+        setTimeout(() => (dummy.style.height = "0px"), 0);
+        return top;
     }
 
     public ejectTop() {
