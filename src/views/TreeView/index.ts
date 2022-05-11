@@ -151,9 +151,9 @@ export default class TreeView {
 
         labels.select("tspan").text((d) => d.target.data.label.join(""));
         labels
-            .selectAll("tspan:nth-child(2)")
+            .select("tspan:nth-child(2)")
             .text((d: HierarchyPointLink<Edge<character>>) =>
-                d.target.data["dual"] ? d.target.data["dual"].label.join("") : null
+                d.target.data["dual"] ? d.target.data["dual"].label.join("") : ""
             );
 
         labels.select("text").each(function () {
@@ -213,7 +213,8 @@ export default class TreeView {
                 },
                 (update) => update,
                 (exit) => exit.style("opacity", "1").transition().duration(400).style("opacity", "0").remove()
-            )
+            );
+        /*
             .each(function (datum) {
                 const node = this as SVGTextElement;
 
@@ -222,7 +223,7 @@ export default class TreeView {
                 if (datum.data.type != null) {
                     node.classList.add(datum.data.type);
                 }
-            });
+            });*/
 
         nodesContainer
             .selectChild("circle")

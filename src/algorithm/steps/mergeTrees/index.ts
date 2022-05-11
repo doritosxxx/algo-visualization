@@ -80,8 +80,8 @@ function mergeSubtrees<T extends character>(
             pushed["dual"] = odd_child;
             merged.children.push(pushed);
             const dualEdge = {
+                target: pushed,
                 edge: odd_child,
-                target: even_child,
             };
             dualEdges.push(dualEdge);
             addTransition(new PullEdgeToMergedTreeTransition(mergedRoot, pushed.id, even_child, odd_child));
