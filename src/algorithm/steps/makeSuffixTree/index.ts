@@ -15,6 +15,9 @@ import {
 import { Edge, Leaf, Root } from "../../class";
 import { character } from "../../types";
 import makeEvenTree from "../makeEvenTree";
+import makeOddTree from "../makeOddTree";
+import mergeTrees from "../mergeTrees";
+import removeDualEdges from "../removeDualEdges";
 import reindex from "./reindex";
 import splitIntoPairs from "./splitIntoPairs";
 import stableSort from "./stableSort";
@@ -68,6 +71,12 @@ function suffixTree<T extends character>(word: T[]): Root<T> {
 
     // Step 2.
     const evenTree = makeEvenTree(tree, _unique);
+    // Step 3.
+    const oddTree = makeOddTree(word);
+    // Step 4.
+    const [merged, dualEdges] = mergeTrees(evenTree, oddTree);
+    // Step 5.
+    removeDualEdges(merged, dualEdges);
 
-    throw new Error("stop it");
+    return merged;
 }
