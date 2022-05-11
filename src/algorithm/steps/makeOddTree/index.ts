@@ -4,7 +4,7 @@ import { Edge, Leaf, Root } from "../../class";
 import { character } from "../../types";
 
 export default function makeOddTree<T extends character>(string: T[]): Root<T> {
-    const tree = makeTrie(getOddSuffixes(string));
+    const tree = makeTrie(getOddSuffixes(string), string.length);
     addTransition(new ShowOddTreeTransition(tree));
     return tree;
 }
@@ -19,7 +19,7 @@ function getOddSuffixes<T>(string: T[]): T[][] {
     return result;
 }
 
-function makeTrie<T extends character>(strings: T[][]): Root<T> {
+function makeTrie<T extends character>(strings: T[][], length: number): Root<T> {
     const root = new Root<T>();
 
     for (const word of strings) {
@@ -32,7 +32,7 @@ function makeTrie<T extends character>(strings: T[][]): Root<T> {
             }
             current = next;
         }
-        current.children.push(new Leaf<T>(2 * strings.length - word.length));
+        current.children.push(new Leaf<T>(length - word.length));
     }
 
     compress(root);
