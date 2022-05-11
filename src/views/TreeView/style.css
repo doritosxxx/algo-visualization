@@ -20,11 +20,11 @@
 .link {
     stroke: black;
     transition: var(--frame-length) stroke, var(--frame-length) stroke-width;
-    stroke-width: 2;
+    stroke-width: 3;
 }
 
 .link.thick {
-    stroke-width: 6;
+    stroke-width: 9;
 }
 
 .link.odd {
@@ -35,10 +35,18 @@
     stroke: var(--color-even);
 }
 
+.link.both {
+    stroke: url(#solids);
+}
+
 .link-label rect {
     fill: white;
 }
 
 .link-label text {
+    fill: black;
+}
+
+.leaf-label {
     fill: black;
 }

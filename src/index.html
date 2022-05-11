@@ -15,7 +15,16 @@
                 <div class="ratio-2x1">
                     <div class="proportional split-panel">
                         <div class="split-panel__left layout-container board">
-                            <svg id="svg" width="1000" height="600" viewBox="0 0 1000 600"></svg>
+                            <svg id="svg" width="1000" height="600" viewBox="0 0 1000 600">
+                                <defs>
+                                    <linearGradient id="solids" x1="0%" y1="0%" y2="100%" x2="0%">
+                                        <stop offset="0%" stop-color="var(--color-even)" stop-opacity="1" />
+                                        <stop offset="50%" stop-color="var(--color-even)" stop-opacity="1" />
+                                        <stop offset="50%" stop-color="var(--color-odd)" stop-opacity="1" />
+                                        <stop offset="100%" stop-color="var(--color-odd)" stop-opacity="1" />
+                                    </linearGradient>
+                                </defs>
+                            </svg>
                             <div class="layout-centered">
                                 <div class="layout-vertical-stack"></div>
                             </div>

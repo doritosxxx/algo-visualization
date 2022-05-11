@@ -1,9 +1,14 @@
 import * as d3 from "d3";
-import { HierarchyPointLink, HierarchyPointNode } from "d3";
+import { HierarchyPointLink, HierarchyPointNode, Numeric, text } from "d3";
 import { Edge, Leaf, Root } from "../../algorithm/class";
 import { character } from "../../algorithm/types";
 import * as state from "../../state";
 import "./style.css";
+
+type dualEdge<T extends character> = {
+    target: Edge<T>;
+    edge: Edge<T>;
+};
 
 const config = {
     svg_width: 400,
@@ -25,12 +30,27 @@ function setSubstringTooltip<T extends character>(node: Edge<T>) {
     }
 }
 
+function getLinkPivotPoint(p1: [number, number], p2: [number, number]): [number, number] {
+    const c = [(p1[0] + p2[0]) / 2, (p1[1] + p2[1]) / 2];
+    const cp1 = [p1[0] - c[0], p1[1] - c[1]];
+    const v = [-cp1[1], cp1[0]];
+    const point: [number, number] = [c[0] + v[0], c[1] + v[1]];
+    return point;
+}
+
+function buildTriangleLinkPath(start: [number, number], end: [number, number]) {
+    const pivot = getLinkPivotPoint(start, end);
+    const path = `M ${start[0]} ${start[1]} L ${pivot[0]} ${pivot[1]} L ${end[0]} ${end[1]}`;
+    return path;
+}
+
 export default class TreeView {
     private width: number = config.svg_width;
     private height: number = config.svg_height;
 
     public container: d3.Selection<SVGSVGElement, undefined, null, undefined>;
     public tree: Root<character> = null;
+    public dualEdges: dualEdge<character>[] = [];
 
     public constructor() {
         this.container = d3
@@ -80,7 +100,9 @@ export default class TreeView {
                     // Labels.
                     const labels = groups.append("g").classed("link-label", true);
                     labels.append("rect");
-                    labels.append("text");
+                    const texts = labels.append("text");
+                    texts.append("tspan").attr("x", 0).attr("y", "0.9em");
+                    texts.append("tspan").attr("x", 0).attr("y", "2.4em");
                     return groups.style("opacity", "0").transition().duration(400).style("opacity", "1");
                 },
                 (update) => {
@@ -100,16 +122,22 @@ export default class TreeView {
                     .linkVertical()
                     .source((d) => [d.source[0], d.source[1]])
                     .target((d) => [d.target[0], d.target[1]])({
-                    source: [d.source.x, d.source.y],
+                    // DON'T REMOVE +1. Straight path line becomes invisible when using linear gradient.
+                    source: [d.source.x + 1, d.source.y],
                     target: [d.target.x, d.target.y],
                 })
             )
+            //.attr("d", (d) => buildTriangleLinkPath([d.source.x, d.source.y], [d.target.x, d.target.y]))
             .each(function (datum) {
                 const link = this as SVGPathElement;
 
                 link.classList.remove("odd");
                 link.classList.remove("even");
-                if (datum.target.data.type != null) {
+                link.classList.remove("both");
+
+                if (datum.target.data["dual"]) {
+                    link.classList.add("both");
+                } else if (datum.target.data.type != null) {
                     link.classList.add(datum.target.data.type);
                 }
             });
@@ -126,23 +154,34 @@ export default class TreeView {
                 return `translate(${x} ${y})`;
             });
 
+        labels.select("tspan").text((d) => d.target.data.label.join(""));
         labels
-            .select("text")
-            .text((d) => d.target.data.label.join(""))
-            .each(function () {
-                const node = this as SVGTextElement;
-                const boundBox = node.getBBox();
-                const parent = node.parentElement;
+            .selectAll("tspan:nth-child(2)")
+            .text((d: HierarchyPointLink<Edge<character>>) =>
+                d.target.data["dual"] ? d.target.data["dual"].label.join("") : null
+            );
 
-                node.setAttribute("transform", `translate(${-boundBox.width / 2} ${boundBox.height / 2})`);
+        labels.select("text").each(function () {
+            const node = this as SVGTextElement;
+            const boundBox = node.getBBox();
+            const parent = node.parentElement;
 
-                const padding = 2;
-                const rect = parent.querySelector("rect");
-                rect.setAttribute("stroke", "black");
-                rect.setAttribute("width", boundBox.width + 2 * padding + "");
-                rect.setAttribute("height", boundBox.height + 2 * padding + "");
-                rect.setAttribute("transform", `translate(${-boundBox.width / 2 - padding} ${-4 * padding})`);
-            });
+            const padding = 2;
+            node.setAttribute(
+                "transform",
+                `translate(${-boundBox.width / 2 - padding} ${-boundBox.height / 2 - padding})`
+            );
+
+            const rect = parent.querySelector("rect");
+            rect.setAttribute("stroke", "black");
+            rect.setAttribute("width", boundBox.width + 2 * padding + "");
+            rect.setAttribute("height", boundBox.height + 2 * padding + "");
+
+            rect.setAttribute(
+                "transform",
+                `translate(${-boundBox.width / 2 - padding} ${-boundBox.height / 2 - padding})`
+            );
+        });
 
         const nodesContainer = this.container
             .select(".nodes")
@@ -174,7 +213,7 @@ export default class TreeView {
                         .on("mouseout", () => state.get().tooltip.hide());
 
                     // Leaf Labels.
-                    groups.append("text").classed("leaf-label", true).attr("fill", "black");
+                    groups.append("text").classed("leaf-label", true);
                     return groups.style("opacity", "0").transition().duration(400).style("opacity", "1");
                 },
                 (update) => update,
@@ -213,5 +252,9 @@ export default class TreeView {
 
     public redraw() {
         this.setData(this.tree);
+    }
+
+    public setDualEdges(edges: dualEdge<character>[]) {
+        this.dualEdges = edges;
     }
 }

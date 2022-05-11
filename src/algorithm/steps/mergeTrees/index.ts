@@ -9,7 +9,7 @@ import { Edge, Root } from "../../class";
 import { character } from "../../types";
 
 type DualEdgesArray<T extends character> = {
-    from: Edge<T>;
+    target: Edge<T>;
     edge: Edge<T>;
 }[];
 
@@ -48,7 +48,7 @@ function mergeSubtrees<T extends character>(
         const even_child = even.children[even_index];
         const odd_child = odd.children[odd_index];
 
-		// If leaf is found we cant compare edges labels.
+        // If leaf is found we cant compare edges labels.
         if (even_child.label.length == 0 || odd_child.label.length == 0) {
             break;
         }
@@ -78,13 +78,18 @@ function mergeSubtrees<T extends character>(
                 breakEdge(even_child, odd_child.label.length);
                 addTransition(new SplitEdgeTransition(evenRoot, "even", label, odd_child.label.length));
             }
-            // Now we have edges with same label length.
 
+            // Now we have edges with same label length.
             const pushed = even_child.cloneType();
             pushed.type = even_child.type;
+            pushed["dual"] = odd_child;
             merged.children.push(pushed);
+            const dualEdge = {
+                edge: odd_child,
+                target: even_child,
+            };
+            dualEdges.push(dualEdge);
             addTransition(new PullEdgeToMergedTreeTransition(mergedRoot, pushed.id, even_child, odd_child));
-            // TODO: Save dual edge.
             mergeSubtrees(even_child, odd_child, pushed, dualEdges, evenRoot, oddRoot, mergedRoot);
             odd_index++;
             even_index++;
