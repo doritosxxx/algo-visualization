@@ -3,7 +3,7 @@ import * as state from "../state";
 import TreeView from "../views/TreeView";
 
 export default class HideOddEvenTreesTransition extends TransitionBase {
-    description: string = "Начитаем удаление двойных ребер в новом дереве.";
+    description: string = "Начинаем удаление двойных ребер в новом дереве.";
 
     private even: TreeView;
     private odd: TreeView;
