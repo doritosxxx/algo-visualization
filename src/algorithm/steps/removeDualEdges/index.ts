@@ -1,7 +1,8 @@
 import { addTransition } from "../../../controller";
 import HideOddEvenTreesTransition from "../../../transitions/HideOddEvenTreesTransition";
 import RemoveDualEdgeTransition from "../../../transitions/RemoveDualEdgeTransition";
-import { Root } from "../../class";
+import SplitDualEdgeTransition from "../../../transitions/SplitDualEdgeTransition";
+import { Edge, Root } from "../../class";
 import { character, dualEdge } from "../../types";
 
 function getCommonPrefixLength<T>(first: T[], second: T[]) {
@@ -19,15 +20,40 @@ export default function removeDualEdges<T extends character>(merged: Root<T>, du
     addTransition(new HideOddEvenTreesTransition());
 
     for (const edgePair of dualEdges) {
-		console.log(edgePair)
+        console.log(edgePair);
         const prefixLength = getCommonPrefixLength(edgePair.edge.label, edgePair.target.label);
+        edgePair.target["dual"] = undefined;
         if (prefixLength == edgePair.edge.label.length) {
-            edgePair.target["dual"] = undefined;
             addTransition(
                 new RemoveDualEdgeTransition(merged, edgePair.edge.label.join(""), edgePair.target.label.join(""))
             );
         } else {
-            // Create new Edge;
+            const oldLabels = [edgePair.target, edgePair.edge].map((e) => e.label.join("")) as [string, string];
+            const commonPrefix = edgePair.edge.label.slice(0, prefixLength);
+            const evenPrefix = edgePair.edge.label.slice(prefixLength);
+            const oddPrefix = edgePair.target.label.slice(prefixLength);
+
+            const evenChild = new Edge<T>(evenPrefix);
+            evenChild.type = "even";
+            evenChild.children = edgePair.target.children.filter((child) => child.type == "even");
+
+            const oddChild = new Edge<T>(oddPrefix);
+            oddChild.type = "odd";
+            oddChild.children = edgePair.target.children.filter((child) => child.type == "odd");
+
+            edgePair.target.label = commonPrefix;
+            edgePair.target.children = evenPrefix[0] < oddPrefix[0] ? [evenChild, oddChild] : [oddChild, evenChild];
+            addTransition(
+                new SplitDualEdgeTransition(
+                    merged,
+                    ...oldLabels,
+                    commonPrefix.join(""),
+                    evenPrefix.join(""),
+                    oddPrefix.join("")
+                )
+            );
         }
     }
+
+    return merged;
 }
