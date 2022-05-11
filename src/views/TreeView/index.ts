@@ -1,14 +1,9 @@
 import * as d3 from "d3";
-import { HierarchyPointLink, HierarchyPointNode, Numeric, text } from "d3";
+import { HierarchyPointLink, HierarchyPointNode } from "d3";
 import { Edge, Leaf, Root } from "../../algorithm/class";
-import { character } from "../../algorithm/types";
+import { character, dualEdge } from "../../algorithm/types";
 import * as state from "../../state";
 import "./style.css";
-
-type dualEdge<T extends character> = {
-    target: Edge<T>;
-    edge: Edge<T>;
-};
 
 const config = {
     svg_width: 400,

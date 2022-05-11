@@ -1,19 +1,13 @@
 import { addTransition } from "../../../controller";
-import { ShowMergedTreeTransition, UpdateTreeTransition } from "../../../transitions";
+import { ShowMergedTreeTransition } from "../../../transitions";
 import AppendSubtreeTransition from "../../../transitions/AppendSubtreeTransition";
 import PaintTreesTransition from "../../../transitions/PaintTreesTransition";
 import PullEdgeToMergedTreeTransition from "../../../transitions/PullEdgeToMergedTreeTransition";
 import SplitEdgeTransition from "../../../transitions/SplitEdgeTransition";
-import UpdateMergedTreeTransition from "../../../transitions/UpdateMergedTreeTransition";
 import { Edge, Root } from "../../class";
-import { character } from "../../types";
+import { character, dualEdge } from "../../types";
 
-type DualEdgesArray<T extends character> = {
-    target: Edge<T>;
-    edge: Edge<T>;
-}[];
-
-export default function mergeTrees<T extends character>(even: Root<T>, odd: Root<T>): Root<T> {
+export default function mergeTrees<T extends character>(even: Root<T>, odd: Root<T>): [Root<T>, dualEdge<T>[]] {
     even.setSubtreeColor("even");
     odd.setSubtreeColor("odd");
 
@@ -21,8 +15,9 @@ export default function mergeTrees<T extends character>(even: Root<T>, odd: Root
     addTransition(new ShowMergedTreeTransition());
 
     const merged = new Root<T>();
-    mergeSubtrees(even, odd, merged, [], even, odd, merged);
-    return merged;
+    const dualEdges = [];
+    mergeSubtrees(even, odd, merged, dualEdges, even, odd, merged);
+    return [merged, dualEdges];
 }
 
 /**
@@ -35,7 +30,7 @@ function mergeSubtrees<T extends character>(
     even: Edge<T>,
     odd: Edge<T>,
     merged: Edge<T>,
-    dualEdges: DualEdgesArray<T>,
+    dualEdges: dualEdge<T>[],
     evenRoot: Edge<T>,
     oddRoot: Edge<T>,
     mergedRoot: Edge<T>

@@ -1,10 +1,9 @@
 import UpdateMergedTreeTransition from "./UpdateMergedTreeTransition";
-import * as state from "../state";
 import { Edge, Root } from "../algorithm/class";
 import { character } from "../algorithm/types";
 
 export default class PullEdgeToMergedTreeTransition extends UpdateMergedTreeTransition {
-    description: string = "[TODO]";
+    description: string;
 
     private edgeId: number;
     private sourceEdgeId: number;
