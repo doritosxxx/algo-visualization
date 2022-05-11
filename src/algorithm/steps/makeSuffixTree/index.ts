@@ -12,6 +12,7 @@ import {
     PushArrayToStackTransition,
     ShowTrivialTreeTransition,
 } from "../../../transitions";
+import FinalMessageTransition from "../../../transitions/FinalMessageTransition";
 import { Edge, Leaf, Root } from "../../class";
 import { character } from "../../types";
 import makeEvenTree from "../makeEvenTree";
@@ -24,7 +25,9 @@ import stableSort from "./stableSort";
 import unique from "./unique";
 
 export function makeSuffixTree(string: string): Root<string> {
-    return suffixTree([...string]);
+    const tree = suffixTree([...string]);
+    addTransition(new FinalMessageTransition(string));
+    return tree;
 }
 
 function suffixTree<T extends character>(word: T[]): Root<T> {
