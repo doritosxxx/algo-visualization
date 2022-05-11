@@ -7,15 +7,17 @@ export default class Root<T extends character> extends Edge<T> {
         super([]);
     }
 
-    clone(): Root<T> {
-        const clone = this.cloneShallow();
-        clone.children = this.children.map((child) => child.clone());
+    clone(saveId = true): Root<T> {
+        const clone = this.cloneShallow(saveId);
+        clone.children = this.children.map((child) => child.clone(saveId));
         return clone;
     }
 
-    cloneShallow(): Root<T> {
+    cloneShallow(saveId = true): Root<T> {
         const clone = new Root<T>();
-        clone.id = this.id;
+        if (saveId) {
+            clone.id = this.id;
+        }
         clone.type = this.type;
         return clone;
     }

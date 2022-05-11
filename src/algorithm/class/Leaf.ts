@@ -9,13 +9,15 @@ export default class Leaf<T extends character> extends Edge<T> {
         this.suffixIndex = suffixIndex;
     }
 
-    clone(): Leaf<T> {
-        return this.cloneShallow();
+    clone(saveId = true): Leaf<T> {
+        return this.cloneShallow(saveId);
     }
 
-    cloneShallow(): Leaf<T> {
+    cloneShallow(saveId = true): Leaf<T> {
         const clone = new Leaf<T>(this.suffixIndex);
-        clone.id = this.id;
+        if (saveId) {
+            clone.id = this.id;
+        }
         clone.type = this.type;
         return clone;
     }

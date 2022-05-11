@@ -23,16 +23,18 @@ export default class Edge<T extends character> implements ICloneable<Edge<T>>, I
         this.label = label;
     }
 
-    clone(): Edge<T> {
-        const clone = this.cloneShallow();
-        clone.children = this.children.map((child) => child.clone());
-		clone["dual"] = this["dual"];
+    clone(saveId = true): Edge<T> {
+        const clone = this.cloneShallow(saveId);
+        clone.children = this.children.map((child) => child.clone(saveId));
+        clone["dual"] = this["dual"];
         return clone;
     }
 
-    cloneShallow(): Edge<T> {
+    cloneShallow(saveId = true): Edge<T> {
         const clone = new Edge<T>([...this.label]);
-        clone.id = this.id;
+        if (saveId) {
+            clone.id = this.id;
+        }
         clone.type = this.type;
         return clone;
     }

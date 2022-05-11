@@ -57,11 +57,11 @@ function mergeSubtrees<T extends character>(
         if (even_child.label[0] != odd_child.label[0]) {
             // Determine node with least letter and insert it into merged tree.
             if (even_child.label[0] < odd_child.label[0]) {
-                merged.children.push(even_child.clone());
+                merged.children.push(even_child.clone(false));
                 even_index++;
                 addTransition(new AppendSubtreeTransition(mergedRoot, "even", getDescendantsIds(even_child)));
             } else {
-                merged.children.push(odd_child.clone());
+                merged.children.push(odd_child.clone(false));
                 odd_index++;
                 addTransition(new AppendSubtreeTransition(mergedRoot, "odd", getDescendantsIds(odd_child)));
             }
@@ -99,12 +99,12 @@ function mergeSubtrees<T extends character>(
     // Append remaining subtrees without merging.
     while (even_index < even.children.length) {
         const child = even.children[even_index++];
-        merged.children.push(child.clone());
+        merged.children.push(child.clone(false));
         addTransition(new AppendSubtreeTransition(mergedRoot, "even", getDescendantsIds(child)));
     }
     while (odd_index < odd.children.length) {
         const child = odd.children[odd_index++];
-        merged.children.push(child.clone());
+        merged.children.push(child.clone(false));
         addTransition(new AppendSubtreeTransition(mergedRoot, "odd", getDescendantsIds(child)));
     }
 }
