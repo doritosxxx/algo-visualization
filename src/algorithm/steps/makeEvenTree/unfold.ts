@@ -7,13 +7,15 @@ export default function unfold<T extends character>(tree: Root<number>, pairs: P
 
 function _unfold<T extends character>(edge: Edge<number>, pairs: Pair<T>[]): Edge<T> {
     let unfolded: Edge<T> | null = null;
-    const letters = edge.label.map((letter) => pairs[letter]).flatMap((pair) => [pair.first, pair.second]);
 
     if (edge instanceof Root) {
         unfolded = new Root<T>();
     } else if (edge instanceof Leaf) {
         unfolded = new Leaf(edge.suffixIndex);
     } else {
+        const letters = edge.label
+            .map((letter) => pairs[letter])
+            .flatMap((pair) => [pair.first, pair.second].filter((e) => e !== null));
         unfolded = new Edge<T>(letters);
     }
 

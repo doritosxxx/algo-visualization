@@ -44,7 +44,11 @@ function _fixCommonBeginnings<T extends character>(current: Edge<T>): void {
 
             for (const edge of group) {
                 edge.label.shift();
-                insertedEdge.children.push(edge);
+                if (edge.label.length == 0) {
+                    insertedEdge.children.push(edge.children[0]);
+                } else {
+                    insertedEdge.children.push(edge);
+                }
             }
         }
     }
