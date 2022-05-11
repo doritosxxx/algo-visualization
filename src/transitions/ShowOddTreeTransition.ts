@@ -23,14 +23,20 @@ export default class ShowOddTreeTransition extends TransitionBase {
         const height = state.get().svg.height;
         state.get().svg.centerBoundBox(0, 0, 2 * 400, height);
 
+        state.get().evenTreeView.setSize(400, +height);
+        state.get().evenTreeView.redraw();
+
         treeView.setSize(400, +height);
         treeView.setData(this.tree);
         treeView.container.attr("x", 400);
     }
 
     _revoke() {
+        const height = state.get().svg.height;
         state.get().oddTreeView.container.remove();
         state.get().oddTreeView = null;
-        state.get().svg.centerBoundBox(0, 0, 400, state.get().svg.height);
+        state.get().evenTreeView.setSize(1200, +height);
+        state.get().evenTreeView.redraw();
+        state.get().svg.centerBoundBox(0, 0, 1200, height);
     }
 }

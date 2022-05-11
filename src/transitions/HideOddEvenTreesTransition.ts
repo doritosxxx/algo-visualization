@@ -11,7 +11,6 @@ export default class HideOddEvenTreesTransition extends TransitionBase {
     _introduce() {
         const svg = document.querySelector("#svg") as SVGSVGElement;
         const height = state.get().svg.height;
-        state.get().svg.centerBoundBox(0, 0, 400, height);
 
         this.odd = state.get().oddTreeView;
         this.even = state.get().evenTreeView;
@@ -20,6 +19,9 @@ export default class HideOddEvenTreesTransition extends TransitionBase {
         this.even.container.transition().duration(400).attr("x", -1200);
         this.odd.container.transition().duration(400).attr("x", -800);
         merged.container.transition().duration(400).attr("x", 0);
+        merged.setSize(1200, height);
+        merged.redraw();
+        state.get().svg.centerBoundBox(0, 0, 1200, height);
 
         this.even.container.remove();
         this.odd.container.remove();
@@ -39,6 +41,9 @@ export default class HideOddEvenTreesTransition extends TransitionBase {
         this.even.container.attr("x", 0);
         this.odd.container.attr("x", 400);
         merged.container.attr("x", 800);
+
+        merged.setSize(400, height);
+		merged.redraw();
 
         state.get().svg.centerBoundBox(0, 0, 3 * 400, height);
     }
