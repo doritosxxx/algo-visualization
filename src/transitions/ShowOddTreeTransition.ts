@@ -5,7 +5,7 @@ import TransitionBase from "./TransitionBase";
 import * as state from "../state";
 
 export default class ShowOddTreeTransition extends TransitionBase {
-    description: string = "??? Нечетное дерево ???";
+    description: string = "Нечетное дерево строится на основе четного";
 
     public tree: Root<character>;
 
