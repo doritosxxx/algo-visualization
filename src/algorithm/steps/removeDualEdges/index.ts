@@ -27,7 +27,6 @@ export default function removeDualEdges<T extends character>(merged: Root<T>, du
     addTransition(new HideOddEvenTreesTransition());
 
     for (const edgePair of dualEdges) {
-        console.log(edgePair);
         const prefixLength = getCommonPrefixLength(edgePair.edge.label, edgePair.target.label);
         edgePair.target["dual"] = undefined;
         if (prefixLength == edgePair.edge.label.length) {
